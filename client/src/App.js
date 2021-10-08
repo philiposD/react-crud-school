@@ -11,19 +11,23 @@ function App() {
       path: "/",
       exact: true,
       sidebar: () => <Sidebar/>,
-      main: () => <Main/>
+      main: () => buildWrapper(<Main/>)
     },
     {
       path: "/students",
       sidebar: () => <Sidebar/>,
-      main: () => <Students/>
+      main: () => buildWrapper(<Students/>)
     },
     {
       path: "/professors",
       sidebar: () => <Sidebar/>,
-      main: () => <Students/>
+      main: () => buildWrapper(<Students/>)
     }
   ];
+
+  const buildWrapper = (ele) => {
+    return <div className='container-wrapper'>{ele}</div>
+  }
 
 
   return (
