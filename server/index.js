@@ -1,12 +1,22 @@
 // import './db.js';
 const express = require("express");
+const bodyParser = require('body-parser');
 const PORT = process.env.PORT || 3001;
 const app = express();
 
 const { Sequelize, DataTypes, Model } = require('sequelize');
 const models = require('./models');
+const Student = require('./models/students');
 
-models.sequelize.sync({logging: console.log, force: true}).then(result => {
+// create application/json parser
+var jsonParser = bodyParser.json()
+
+// create application/x-www-form-urlencoded parser
+var urlencodedParser = bodyParser.urlencoded({ extended: false })
+
+let forceDB = false
+
+models.sequelize.sync({logging: console.log, force: forceDB}).then(result => {
   app.listen(PORT, () => {
     console.log(`Server listening on ${PORT}`);
   });
@@ -18,6 +28,11 @@ models.sequelize.sync({logging: console.log, force: true}).then(result => {
       // console.log(data);
       res.json({ message: "Hello from server!!!", data: data });
     });
+  });
+
+  app.post("/students/add", jsonParser, (req, res) => {
+    console.log(req.body);
+    models.students.build(req.body).save();
   });
 
 }).catch(err => {
