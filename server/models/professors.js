@@ -32,10 +32,6 @@ module.exports = (seq, DataTypes) => {
     school: {
       type: DataTypes.STRING(32),
       allowNull: true
-    },
-    group: {
-      type: DataTypes.INTEGER,
-      allowNull: true,
     }
   });
 
