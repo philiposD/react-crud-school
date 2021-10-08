@@ -1,4 +1,4 @@
-const db = require("./index") // import the Database connection path;
+const db = require("./index") // import the Database connection path
 const seq = db.sequelize;
 
 module.exports = (seq, DataTypes) => {
