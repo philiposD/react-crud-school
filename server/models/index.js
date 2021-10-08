@@ -33,6 +33,11 @@ Object.keys(db).forEach(modelName => {
   }
 });
 
+db.groups.hasMany(db.students);
+db.groups.hasMany(db.professors);
+
+console.log('test');
+
 // const models = {
 //   Users: sequelize.import('./users')
 // }
