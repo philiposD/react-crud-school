@@ -6,8 +6,9 @@ import { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 // import { TextField, Button } from '@mui/material';
 import AddStudents from './add-students';
+import GridStudents from './grid-students';
 
-function Main() {
+function StudentsView() {
   const [data, setData] = useState({});
 
   useEffect(() => {
@@ -24,8 +25,9 @@ function Main() {
   return (
     <>
       <AddStudents />
+      <GridStudents students={data} />
     </>
   );
 }
 
-export default Main;
+export default StudentsView;

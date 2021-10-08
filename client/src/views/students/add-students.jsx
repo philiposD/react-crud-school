@@ -13,7 +13,7 @@ import React, { useState } from 'react';
 export default function AddStudents() {
   const { register, handleSubmit, formState: { errors }} = useForm();
 
-  const [value, setValue] = React.useState(new Date('2014-08-18T21:11:54'));
+  const [value, setValue] = React.useState(new Date('2000-08-18T21:11:54'));
 
   const handleChange = (newValue) => {
     setValue(newValue);
