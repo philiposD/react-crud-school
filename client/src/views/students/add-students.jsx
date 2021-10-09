@@ -8,12 +8,15 @@ import DesktopDatePicker from '@mui/lab/DesktopDatePicker';
 import MobileDatePicker from '@mui/lab/MobileDatePicker';
 import LocalizationProvider from '@mui/lab/LocalizationProvider';
 import AdapterDateFns from '@mui/lab/AdapterDateFns';
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { fetchStudents } from '../../services/http-service';
+import { StudentsContext } from './studentsContext';
 
 export default function AddStudents(props) {
   const { register, handleSubmit, formState: { errors }} = useForm();
   const [value, setValue] = React.useState(new Date('2000-08-18T21:11:54'));
+
+  const {setStudents } = useContext(StudentsContext);
 
   console.log('AddStudents', props);
 
@@ -29,19 +32,20 @@ export default function AddStudents(props) {
       fetchStudents('param123').then(res => {
         console.log(res);
         // props.callbackAdd(res.data);
-        props.test();
-        props.callbackAdd([{
-          "id": 1,
-          "firstName": "DRONTZAS",
-          "lastName": "PHILIPOS",
-          "dateOfBirth": "2000-08-18",
-          "email": "raziel_1cs@yahoo.com",
-          "phone": "652529020",
-          "school": "Default school",
-          "createdAt": "2021-10-08T22:17:46.000Z",
-          "updatedAt": "2021-10-08T22:17:46.000Z",
-          "groupId": null
-      }]);
+        setStudents(res.data);
+      //   props.test();
+      //   props.callbackAdd([{
+      //     "id": 1,
+      //     "firstName": "DRONTZAS",
+      //     "lastName": "PHILIPOS",
+      //     "dateOfBirth": "2000-08-18",
+      //     "email": "raziel_1cs@yahoo.com",
+      //     "phone": "652529020",
+      //     "school": "Default school",
+      //     "createdAt": "2021-10-08T22:17:46.000Z",
+      //     "updatedAt": "2021-10-08T22:17:46.000Z",
+      //     "groupId": null
+      // }]);
       });
     })
     .catch(function (error) {

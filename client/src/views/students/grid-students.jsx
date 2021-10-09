@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useState, useEffect, useCallback, useContext } from 'react';
 import PropTypes from 'prop-types';
 import Box from '@mui/material/Box';
 import Collapse from '@mui/material/Collapse';
@@ -13,20 +13,19 @@ import Typography from '@mui/material/Typography';
 import Paper from '@mui/material/Paper';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
+import { StudentsContext } from './studentsContext';
 
 export default function GridStudents(props) {
-  console.log('GridStudents props', props.students.data);
+  // console.log('GridStudents props', props.students.data);
+  // const [students, setStudents] = useState(props.students.data);
+  // console.log('props.students.data:', props.students.data);
+  const { students, setStudents } = useContext(StudentsContext);
 
-  const [students, setStudents] = useState(props.students.data);
-  // if (props.students.data !== students) setStudents(props.students.data ?? []);
+  debugger
 
-  console.log('props.students.data:', props.students.data);
-
-  useEffect(() => {
-    setStudents(props.students.data);
-}, [props.students.data]);
-
-  // let students = props.students.data;
+//   useEffect(() => {
+//     setStudents(props.students.data);
+// }, [props.students.data]);
 
   function createData(firstName, lastName, phone, email, school, group) {
     return {
