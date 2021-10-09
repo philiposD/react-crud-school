@@ -14,38 +14,23 @@ import { StudentsContext } from './studentsContext';
 
 export default function AddStudents(props) {
   const { register, handleSubmit, formState: { errors }} = useForm();
-  const [value, setValue] = React.useState(new Date('2000-08-18T21:11:54'));
+  const [dateValue, setDateValue] = React.useState(new Date('2000-08-18T21:11:54'));
 
   const {setStudents } = useContext(StudentsContext);
 
   console.log('AddStudents', props);
 
-  const handleChange = (newValue) => {
-    setValue(newValue);
+  const handleDateChange = (newValue) => {
+    setDateValue(newValue);
   };
 
   const onSubmit = (data) => {
     axios.post('/students/add', data)
     .then(function (response) {
-      console.log(response);
-      // console.log('bili bala');
+      console.log('Post response:', response);
       fetchStudents('param123').then(res => {
-        console.log(res);
-        // props.callbackAdd(res.data);
+        console.log('Get students response:', res);
         setStudents(res.data);
-      //   props.test();
-      //   props.callbackAdd([{
-      //     "id": 1,
-      //     "firstName": "DRONTZAS",
-      //     "lastName": "PHILIPOS",
-      //     "dateOfBirth": "2000-08-18",
-      //     "email": "raziel_1cs@yahoo.com",
-      //     "phone": "652529020",
-      //     "school": "Default school",
-      //     "createdAt": "2021-10-08T22:17:46.000Z",
-      //     "updatedAt": "2021-10-08T22:17:46.000Z",
-      //     "groupId": null
-      // }]);
       });
     })
     .catch(function (error) {
@@ -106,8 +91,8 @@ export default function AddStudents(props) {
             <DesktopDatePicker
               label="Date of birth"
               inputFormat="yyyy-MM-dd"
-              value={value}
-              onChange={handleChange}
+              value={dateValue}
+              onChange={handleDateChange}
               renderInput={(params) => <TextField {...params} />}
             />
           </div>
@@ -116,8 +101,8 @@ export default function AddStudents(props) {
             <MobileDatePicker
               label="Date of birth"
               inputFormat="yyyy-MM-dd"
-              value={value}
-              onChange={handleChange}
+              value={dateValue}
+              onChange={handleDateChange}
               renderInput={(params) => <TextField {...params} />}
               {...register('dateOfBirth', {required: true})}
             />
