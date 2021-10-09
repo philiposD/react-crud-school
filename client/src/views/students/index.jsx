@@ -14,20 +14,28 @@ function StudentsView() {
   useEffect(() => {
     console.log('test from Main');
     fetchStudents('param123').then(res => {
-      console.log(res)
+      console.log('fetchStudents', res)
       setData(res);
     });
   },[]);
 
+  function test() {
+    console.log('testing function props');
+  }
+
   // const { register, handleSubmit, formState: { errors }} = useForm();
   // const onSubmit = (data) => console.log(data);
 
-  return (
-    <>
-      <AddStudents />
-      <GridStudents students={data} />
-    </>
-  );
+  console.log('we have data', data);
+
+  if(data !== {}) {
+    return (
+      <>
+        <AddStudents callbackAdd={setData} test={test} />
+        {<GridStudents students={data} />}
+      </>
+    );
+  }
 }
 
 export default StudentsView;

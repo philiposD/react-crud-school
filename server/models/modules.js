@@ -13,8 +13,12 @@ module.exports = (seq, DataTypes) => {
       type: DataTypes.STRING(64),
       allowNull: false
     },
-    type: {
-      type: DataTypes.STRING(32),
+    simulationTest: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+    },
+    exam: {
+      type: DataTypes.INTEGER,
       allowNull: false,
     },
     note: {

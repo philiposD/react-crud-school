@@ -9,22 +9,40 @@ import MobileDatePicker from '@mui/lab/MobileDatePicker';
 import LocalizationProvider from '@mui/lab/LocalizationProvider';
 import AdapterDateFns from '@mui/lab/AdapterDateFns';
 import React, { useState } from 'react';
+import { fetchStudents } from '../../services/http-service';
 
-export default function AddStudents() {
+export default function AddStudents(props) {
   const { register, handleSubmit, formState: { errors }} = useForm();
-
   const [value, setValue] = React.useState(new Date('2000-08-18T21:11:54'));
+
+  console.log('AddStudents', props);
 
   const handleChange = (newValue) => {
     setValue(newValue);
   };
 
   const onSubmit = (data) => {
-    console.log('onSubmit', data);
-    data.dateOfBirth = "1980-06-17";
     axios.post('/students/add', data)
     .then(function (response) {
       console.log(response);
+      // console.log('bili bala');
+      fetchStudents('param123').then(res => {
+        console.log(res);
+        // props.callbackAdd(res.data);
+        props.test();
+        props.callbackAdd([{
+          "id": 1,
+          "firstName": "DRONTZAS",
+          "lastName": "PHILIPOS",
+          "dateOfBirth": "2000-08-18",
+          "email": "raziel_1cs@yahoo.com",
+          "phone": "652529020",
+          "school": "Default school",
+          "createdAt": "2021-10-08T22:17:46.000Z",
+          "updatedAt": "2021-10-08T22:17:46.000Z",
+          "groupId": null
+      }]);
+      });
     })
     .catch(function (error) {
       console.log(error);
@@ -75,8 +93,8 @@ export default function AddStudents() {
             className='form-text-field'
             label="School"
             type="text"
-            required
-            {...register('school', {required: true})}
+            defaultValue="Default school"
+            {...register('school')}
           />
 
         <LocalizationProvider dateAdapter={AdapterDateFns}>
@@ -93,7 +111,7 @@ export default function AddStudents() {
           <div id='dob-mobile'>
             <MobileDatePicker
               label="Date of birth"
-              inputFormat="dd/MM/yyyy"
+              inputFormat="yyyy-MM-dd"
               value={value}
               onChange={handleChange}
               renderInput={(params) => <TextField {...params} />}

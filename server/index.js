@@ -7,6 +7,15 @@ const app = express();
 const { Sequelize, DataTypes, Model } = require('sequelize');
 const models = require('./models');
 const Student = require('./models/students');
+var cors = require('cors');
+
+var corsOptions = {
+  origin: 'http://localhost:3000/',
+  optionsSuccessStatus: 200 // some legacy browsers (IE11, various SmartTVs) choke on 204
+}
+
+app.use(cors(corsOptions));
+
 
 // create application/json parser
 var jsonParser = bodyParser.json()
@@ -17,6 +26,7 @@ var urlencodedParser = bodyParser.urlencoded({ extended: false })
 let forceDB = false
 
 models.sequelize.sync({logging: console.log, force: forceDB}).then(result => {
+
   app.listen(PORT, () => {
     console.log(`Server listening on ${PORT}`);
   });
@@ -33,6 +43,7 @@ models.sequelize.sync({logging: console.log, force: forceDB}).then(result => {
   app.post("/students/add", jsonParser, (req, res) => {
     console.log(req.body);
     models.students.build(req.body).save();
+    res.send('Student inserted');
   });
 
 }).catch(err => {

@@ -31,7 +31,8 @@ module.exports = (seq, DataTypes) => {
     },
     school: {
       type: DataTypes.STRING(32),
-      allowNull: true
+      allowNull: true,
+      defaultValue: 'Testing default value'
     }
   });
 
