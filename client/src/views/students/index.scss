@@ -1,8 +1,15 @@
 #students-container {
-  .form-text-field {
-    width: 100%;
-    margin: 10px 10px;
+  form {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+
+    .form-text-field {
+      // width: 100%;
+      margin: 10px 10px;
+    }
   }
+
 
   @media all and (max-width: 1024px) {
     #dob-desktop {

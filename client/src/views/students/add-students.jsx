@@ -25,6 +25,7 @@ export default function AddStudents(props) {
   };
 
   const onSubmit = (data) => {
+    console.log(data)
     axios.post('/students/add', data)
     .then(function (response) {
       console.log('Post response:', response);
@@ -47,7 +48,7 @@ export default function AddStudents(props) {
             label="First name"
             type="text"
             required
-            {...register('firstName', {required: true})}
+            {...register('firstName')}
           />
 
         <TextField
@@ -56,25 +57,58 @@ export default function AddStudents(props) {
             label="Last name"
             type="text"
             required
-            {...register('lastName', {required: true})}
+            {...register('lastName')}
           />
 
         <TextField
-            id="outlined-email"
+            id="outlined-last-uid"
             className='form-text-field'
-            label="Email"
+            label="UID-CNP"
+            type="text"
+            required
+            {...register('UID')}
+          />
+
+        <TextField
+            id="outlined-email-student"
+            className='form-text-field'
+            label="Email student"
             type="email"
             required
-            {...register('email', {required: true})}
+            {...register('emailStudent')}
           />
 
         <TextField
-            id="outlined-phone"
+            id="outlined-email-parent"
             className='form-text-field'
-            label="Phone"
-            type="tel"
+            label="Email parent"
+            type="email"
             required
-            {...register('phone', {required: true})}
+            {...register('emailParent')}
+          />
+
+        <TextField
+            id="outlined-phone-student"
+            className='form-text-field'
+            label="Phone student"
+            type="tel"
+            {...register('phoneStudent')}
+          />
+
+        <TextField
+            id="outlined-phone-parent"
+            className='form-text-field'
+            label="Phone parent"
+            type="tel"
+            {...register('phoneParent')}
+          />
+
+        <TextField
+            id="outlined-parent-name"
+            className='form-text-field'
+            label="Parent name"
+            type="text"
+            {...register('parentName')}
           />
 
         <TextField
@@ -86,6 +120,14 @@ export default function AddStudents(props) {
             {...register('school')}
           />
 
+        <TextField
+            id="outlined-class"
+            className='form-text-field'
+            label="Class"
+            type="text"
+            {...register('class')}
+          />
+
         <LocalizationProvider dateAdapter={AdapterDateFns}>
           <div id='dob-desktop'>
             <DesktopDatePicker
@@ -93,6 +135,7 @@ export default function AddStudents(props) {
               inputFormat="yyyy-MM-dd"
               value={dateValue}
               onChange={handleDateChange}
+              required
               renderInput={(params) => <TextField {...params} />}
             />
           </div>
@@ -103,8 +146,9 @@ export default function AddStudents(props) {
               inputFormat="yyyy-MM-dd"
               value={dateValue}
               onChange={handleDateChange}
+              required
               renderInput={(params) => <TextField {...params} />}
-              {...register('dateOfBirth', {required: true})}
+              {...register('dateOfBirth')}
             />
           </div>
         </LocalizationProvider>

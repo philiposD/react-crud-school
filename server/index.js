@@ -16,7 +16,6 @@ var corsOptions = {
 
 app.use(cors(corsOptions));
 
-
 // create application/json parser
 var jsonParser = bodyParser.json()
 
@@ -41,7 +40,7 @@ models.sequelize.sync({logging: console.log, force: forceDB}).then(result => {
   });
 
   app.post("/students/add", jsonParser, (req, res) => {
-    console.log(req.body);
+    console.log('/students/add req.body: ',req.body);
     models.students.build(req.body).save();
     res.send('Student inserted');
   });
