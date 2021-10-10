@@ -14,20 +14,20 @@ import GridModules from './grid-modules';
 
 
 export default function Modules() {
-  const [students, setStudents] = useState(null);
-  const value = useMemo(() => ({students, setStudents}), [students]);
+  const [modules, setModules] = useState(null);
+  const value = useMemo(() => ({modules, setModules}), [modules]);
 
   useEffect(() => {
     console.log('test from Main');
     fetchModules('param123').then(res => {
       console.log('fetchStudents', res);
-      setStudents(res.data);
+      setModules(res.data);
     });
   },[]);
 
   return(
     <>
-    {students !== null
+    {modules !== null
     ? (<ModuleContext.Provider value={value}>
           <AddModule />
           <GridModules />

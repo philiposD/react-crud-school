@@ -7,14 +7,14 @@ import MobileDatePicker from '@mui/lab/MobileDatePicker';
 import LocalizationProvider from '@mui/lab/LocalizationProvider';
 import AdapterDateFns from '@mui/lab/AdapterDateFns';
 import React, { useContext, useState } from 'react';
-import { fetchStudents } from '../../services/http-service';
+import { fetchModules, fetchStudents } from '../../services/http-service';
 import { ModuleContext } from './moduleContext';
 
 export default function AddModule (props) {
   const { register, handleSubmit, formState: { errors }} = useForm();
   const [dateValue, setDateValue] = React.useState(new Date('2000-08-18T21:11:54'));
 
-  const {setStudents } = useContext(ModuleContext);
+  const { setModules } = useContext(ModuleContext);
 
   console.log('AddStudents', props);
 
@@ -28,10 +28,10 @@ export default function AddModule (props) {
     axios.post('/modules/add', data)
     .then(function (response) {
       console.log('Post response:', response);
-      // fetchStudents('param123').then(res => {
-      //   console.log('Get students response:', res);
-      //   setStudents(res.data);
-      // });
+      fetchModules('param123').then(res => {
+        console.log('Get students response:', res);
+        setModules(res.data);
+      });
     })
     .catch(function (error) {
       console.log(error);
