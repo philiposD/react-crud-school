@@ -37,12 +37,9 @@ db.groups.hasMany(db.students);
 db.groups.hasMany(db.professors);
 db.students.hasMany(db.studentModules);
 db.modules.hasMany(db.studentModules);
+db.courses.belongsToMany(db.modules, { through: 'coursesModules' });
 
 console.log('test');
-
-// const models = {
-//   Users: sequelize.import('./users')
-// }
 
 db.sequelize = sequelize;
 db.Sequelize = Sequelize;

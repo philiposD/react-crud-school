@@ -18,7 +18,7 @@ const router = express.Router();
 app.use(express.urlencoded({extended: true}));
 app.use(express.json());
 
-let forceDB = false
+let forceDB = true
 
 models.sequelize.sync({logging: console.log, force: forceDB}).then(result => {
   app.listen(PORT, () => {
@@ -49,7 +49,21 @@ models.sequelize.sync({logging: console.log, force: forceDB}).then(result => {
     res.send('Module inserted');
   });
 
+  app.post("/courses/add", (req, res) => {
+    console.log('/courses/add req.body: ',req.body);
+    models.courses.build(req.body).save();
+    res.send('Course inserted');
+  });
+
+  app.post("/courses-modules/add", (req, res) => {
+    console.log('/courses-modules/add req.body: ',req.body);
+    models.coursesModules.build(req.body).save();
+    res.send('courses-modules inserted');
+  });
+
+
   app.use('/', router);
+
 
 }).catch(err => {
   console.log(err);
