@@ -17,6 +17,14 @@ module.exports = (seq, DataTypes) => {
       type: DataTypes.INTEGER,
       allowNull: true
     },
+    registrationDate: {
+      type: DataTypes.DATEONLY,
+      allowNull: true,
+    },
+    duration: {
+      type: DataTypes.STRING,
+      allowNull: true,
+    },
     note: {
       type: DataTypes.STRING,
       allowNull: true
