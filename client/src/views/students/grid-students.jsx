@@ -81,7 +81,7 @@ export default function GridStudents(props) {
                     </TableRow>
                   </TableHead>
                   <TableBody>
-                    {row?.history?.map((historyRow) => (
+                    {[1,2,3].map((historyRow) => (
                       <TableRow key={historyRow.date}>
                         <TableCell component="th" scope="row">
                           {historyRow.date}
