@@ -1,6 +1,5 @@
 
 import './index.scss';
-import '../../services/http-service';
 import { useForm } from 'react-hook-form';
 import { TextField, Button } from '@mui/material';
 import axios from 'axios';
@@ -10,13 +9,13 @@ import LocalizationProvider from '@mui/lab/LocalizationProvider';
 import AdapterDateFns from '@mui/lab/AdapterDateFns';
 import React, { useContext, useState } from 'react';
 import { fetchStudents } from '../../services/http-service';
-import { StudentsContext } from './studentsContext';
+import { StudentContext } from './studentContext';
 
 export default function AddStudents(props) {
   const { register, handleSubmit, formState: { errors }} = useForm();
   const [dateValue, setDateValue] = React.useState(new Date('2000-08-18T21:11:54'));
 
-  const {setStudents } = useContext(StudentsContext);
+  const {setStudents } = useContext(StudentContext);
 
   console.log('AddStudents', props);
 

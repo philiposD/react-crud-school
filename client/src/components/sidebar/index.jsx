@@ -15,6 +15,9 @@ function Sidebar() {
         <li className="professors">
           <Link to="/professors">Professors</Link>
         </li>
+        <li className="modules">
+          <Link to="/modules">Module</Link>
+        </li>
         <li className="groups">
           <p>groups</p>
         </li>

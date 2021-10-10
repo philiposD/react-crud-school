@@ -35,6 +35,8 @@ Object.keys(db).forEach(modelName => {
 
 db.groups.hasMany(db.students);
 db.groups.hasMany(db.professors);
+db.students.hasMany(db.studentModules);
+db.modules.hasMany(db.studentModules);
 
 console.log('test');
 

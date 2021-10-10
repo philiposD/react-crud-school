@@ -6,7 +6,7 @@ import { useEffect, useState, React, useMemo } from 'react';
 import AddStudents from './add-students';
 import GridStudents from './grid-students';
 import GridStudentsSorting from './grid-students-sorting';
-import { StudentsContext } from './studentsContext';
+import { StudentContext } from './studentContext';
 
 function StudentsView() {
   const [students, setStudents] = useState(null);
@@ -23,11 +23,11 @@ function StudentsView() {
     return (
       <>
       {students !== null
-      ? (<StudentsContext.Provider value={value}>
-            <AddStudents callbackAdd={setStudents} />
+      ? (<StudentContext.Provider value={value}>
+            <AddStudents />
             <GridStudentsSorting students={students} />
             <GridStudents students={students} />
-          </StudentsContext.Provider>
+          </StudentContext.Provider>
         )
       : (<div></div>)}
       </>

@@ -2,6 +2,7 @@ import logo from './logo.svg';
 import './App.scss';
 import Main from './views/dashboard';
 import Students from './views/students';
+import Modules from './views/modules';
 import Sidebar from './components/sidebar';
 import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 
@@ -22,6 +23,11 @@ function App() {
       path: "/professors",
       sidebar: () => <Sidebar/>,
       main: () => buildWrapper(<Students/>)
+    },
+    {
+      path: "/modules",
+      sidebar: () => <Sidebar/>,
+      main: () => buildWrapper(<Modules/>)
     }
   ];
 

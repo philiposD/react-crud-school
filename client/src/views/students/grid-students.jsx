@@ -12,10 +12,10 @@ import Typography from '@mui/material/Typography';
 import Paper from '@mui/material/Paper';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
-import { StudentsContext } from './studentsContext';
+import { StudentContext } from './studentContext';
 
 export default function GridStudents(props) {
-  const { students, setStudents } = useContext(StudentsContext);
+  const { students, setStudents } = useContext(StudentContext);
 
   function createData(firstName, lastName, phone, email, school, group) {
     return {
