@@ -67,7 +67,12 @@ models.sequelize.sync({logging: console.log, force: forceDB}).then(result => {
   app.post("/module/delete", (req, res) => {
     console.log('/module/delete:', req.body);
     models.modules.destroy({where: {id: req.body.id}});
-    res.send('courses-modules inserted');
+    res.send('Module deleted');
+  });
+  app.post("/student/delete", (req, res) => {
+    console.log('/student/delete:', req.body);
+    models.students.destroy({where: {id: req.body.id}});
+    res.send('Student deleted');
   });
 
 

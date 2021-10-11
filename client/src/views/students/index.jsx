@@ -1,7 +1,7 @@
 // import logo from './logo.svg';
 import './index.scss';
 import '../../services/http-service';
-import { fetchStudents } from '../../services/http-service';
+import { fetchStudents, deleteStudent } from '../../services/http-service';
 import { useEffect, useState, React, useMemo } from 'react';
 import AddStudents from './add-students';
 import GridStudents from './grid-students';
@@ -104,6 +104,9 @@ function StudentsView() {
               headCells={headCells}
               order={arrOrder}
               name={'Students'}
+              deleteCallback={deleteStudent}
+              fetchData={fetchStudents}
+              setData={setStudents}
             />
           </StudentContext.Provider>
         )

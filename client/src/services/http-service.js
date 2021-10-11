@@ -21,4 +21,11 @@ export const deleteModule = (param) => {
   });
 }
 
+export const deleteStudent = (param) => {
+  console.log(param);
+  return new Promise((resolve, reject) => {
+    axios.post('/student/delete', {id: param}).then(res => {resolve(res.data)});
+  });
+}
+
 // export default fetchStudents;
