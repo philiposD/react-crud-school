@@ -37,6 +37,8 @@ models.sequelize.sync({logging: console.log, force: forceDB}).then(result => {
     });
   });
 
+
+  //ADD
   app.post("/students/add", (req, res) => {
     console.log('/students/add req.body: ',req.body);
     models.students.build(req.body).save();
@@ -58,6 +60,13 @@ models.sequelize.sync({logging: console.log, force: forceDB}).then(result => {
   app.post("/course-modules/add", (req, res) => {
     console.log('/course-modules/add req.body: ',req.body);
     models.courseModules.build(req.body).save();
+    res.send('courses-modules inserted');
+  });
+
+  //DELETE
+  app.post("/module/delete", (req, res) => {
+    console.log('/module/delete:', req.body);
+    models.modules.destroy({where: {id: req.body.id}});
     res.send('courses-modules inserted');
   });
 

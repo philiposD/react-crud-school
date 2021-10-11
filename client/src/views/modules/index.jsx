@@ -6,13 +6,12 @@ import DesktopDatePicker from '@mui/lab/DesktopDatePicker';
 import MobileDatePicker from '@mui/lab/MobileDatePicker';
 import LocalizationProvider from '@mui/lab/LocalizationProvider';
 import AdapterDateFns from '@mui/lab/AdapterDateFns';
-import { fetchModules } from '../../services/http-service';
+import { fetchModules, deleteModule } from '../../services/http-service';
 import { ModuleContext } from './moduleContext';
 import { useEffect, useState, React, useMemo } from 'react';
 import AddModule from './add-module';
 import GridModules from './grid-modules';
 import DataTableSort from '../../components/data-table-sort';
-
 
 export default function Modules() {
   const [modules, setModules] = useState(null);
@@ -73,6 +72,9 @@ export default function Modules() {
             headCells={headCells}
             order={arrOrder}
             name={'Modules'}
+            deleteCallback={deleteModule}
+            fetchData={fetchModules}
+            setData={setModules}
           />
         </ModuleContext.Provider>
       )

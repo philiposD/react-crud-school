@@ -46,6 +46,12 @@ export default function DataTableSort(props) {
 
   const name = props.name;
 
+  const deleteCallback = props.deleteCallback;
+
+  const fetchData = props.fetchData;
+
+  const setData = props.setData;
+
 function createData(name, calories, fat, carbs, protein) {
   return {
     name,
@@ -194,7 +200,7 @@ const EnhancedTableToolbar = (props) => {
 
       {numSelected > 0 ? (
         <Tooltip title="Delete">
-          <IconButton>
+          <IconButton onClick={handleDelete}>
             <DeleteIcon />
           </IconButton>
         </Tooltip>
@@ -208,6 +214,11 @@ const EnhancedTableToolbar = (props) => {
     </Toolbar>
   );
 };
+
+function handleDelete() {
+  selected.forEach(ele => deleteCallback(ele));
+  fetchData().then(res => setData(res.data));
+}
 
 EnhancedTableToolbar.propTypes = {
   numSelected: PropTypes.number.isRequired,
