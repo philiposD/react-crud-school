@@ -3,6 +3,7 @@ import './App.scss';
 import Main from './views/dashboard';
 import Students from './views/students';
 import Modules from './views/modules';
+import ParentsView from './views/parents';
 import Sidebar from './components/sidebar';
 import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 
@@ -39,33 +40,33 @@ const menuItems = [
     name: 'Dashboard',
     link: '/',
     icon: <DashboardIcon />,
-    main: () => buildWrapper(<Main/>),
+    main: () => buildWrapper(<Main />),
     exact: true
   },
   {
     name: 'Students',
     link: '/students',
     icon: <PersonIcon />,
-    main: () => buildWrapper(<Students/>)
+    main: () => buildWrapper(<Students />)
   },
   {
     name: 'Parents',
     link: '/parents',
     icon: <AccessibilityNewIcon />,
-    main: () => buildWrapper(<Students/>)
+    main: () => buildWrapper(<ParentsView />)
   },
   {
     name: 'Professors',
     link: '/professors',
     icon: <RecordVoiceOverIcon />,
-    main: () => buildWrapper(<Students/>)
+    main: () => buildWrapper(<Students />)
   },
 
   {
     name: 'Modules',
     link: '/modules',
     icon: <ViewModuleIcon />,
-    main: () => buildWrapper(<Modules/>)
+    main: () => buildWrapper(<Modules />)
   },
 ];
 
@@ -156,76 +157,76 @@ function App() {
   return (
     <Box sx={{ display: 'flex' }}>
       <Router>
-      <CssBaseline />
-      <AppBar position="fixed" open={open}>
-        <Toolbar>
-          <IconButton
-            color="inherit"
-            aria-label="open drawer"
-            onClick={handleDrawerOpen}
-            edge="start"
-            sx={{
-              marginRight: '36px',
-              ...(open && { display: 'none' }),
-            }}
-          >
-            <MenuIcon />
-          </IconButton>
-          <Typography variant="h6" noWrap component="div">
-            Mini variant drawer
-          </Typography>
-        </Toolbar>
-      </AppBar>
-      <Drawer variant="permanent" open={open}>
-        <DrawerHeader>
-          <IconButton onClick={handleDrawerClose}>
-            {theme.direction === 'rtl' ? <ChevronRightIcon /> : <ChevronLeftIcon />}
-          </IconButton>
-        </DrawerHeader>
-        <Divider />
+        <CssBaseline />
+        <AppBar position="fixed" open={open}>
+          <Toolbar>
+            <IconButton
+              color="inherit"
+              aria-label="open drawer"
+              onClick={handleDrawerOpen}
+              edge="start"
+              sx={{
+                marginRight: '36px',
+                ...(open && { display: 'none' }),
+              }}
+            >
+              <MenuIcon />
+            </IconButton>
+            <Typography variant="h6" noWrap component="div">
+              Mini variant drawer
+            </Typography>
+          </Toolbar>
+        </AppBar>
+        <Drawer variant="permanent" open={open}>
+          <DrawerHeader>
+            <IconButton onClick={handleDrawerClose}>
+              {theme.direction === 'rtl' ? <ChevronRightIcon /> : <ChevronLeftIcon />}
+            </IconButton>
+          </DrawerHeader>
+          <Divider />
           <List>
             {/* {['Inbox', 'Starred', 'Send email', 'Drafts'].map((text, index) => ( */}
             {menuItems.map((item, index) => (
               <ListItem button key={item.name}>
                 <Link to={item.link}>
-                <ListItemIcon>
-                  {/* {index % 2 === 0 ? <InboxIcon /> : <MailIcon />} */}
-                  {item.icon}
-                </ListItemIcon>
-                {/* <ListItemText primary={item.name} /> */}
-                {item.name}
+                  <ListItemIcon>
+                    {/* {index % 2 === 0 ? <InboxIcon /> : <MailIcon />} */}
+                    {item.icon}
+                  </ListItemIcon>
+                  {/* <ListItemText primary={item.name} /> */}
+                  {item.name}
                 </Link>
               </ListItem>
             ))}
           </List>
-        <Divider />
-        <List>
-          {['All mail', 'Trash', 'Spam'].map((text, index) => (
-            <ListItem button key={text}>
-              <ListItemIcon>
-                {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
-              </ListItemIcon>
-              <ListItemText primary={text} />
-            </ListItem>
-          ))}
-        </List>
-      </Drawer>
+          <Divider />
+          <List>
+            {['All mail', 'Trash', 'Spam'].map((text, index) => (
+              <ListItem button key={text}>
+                <ListItemIcon>
+                  {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
+                </ListItemIcon>
+                <ListItemText primary={text} />
+              </ListItem>
+            ))}
+          </List>
+        </Drawer>
 
-      <Box component="main" sx={{ flexGrow: 1, p: 3 }}>
-        <DrawerHeader />
+        <Box component="main" sx={{ flexGrow: 1, p: 3 }}>
+          <DrawerHeader />
 
-    <Switch>
-      {menuItems.map((route, index) => (
-        <Route
-          key={index}
-          path={route.link}
-          exact={route.exact}
-          children={<route.main />}
-        />
-      ))}
-    </Switch>
-      </Box>
-    </Router>
+          <Switch>
+            {menuItems.map((route, index) => (
+              <Route
+                key={index}
+                path={route.link}
+                exact={route.exact}
+                children={<route.main />}
+              />
+            ))}
+          </Switch>
+        </Box>
+      </Router>
     </Box>
   );
 

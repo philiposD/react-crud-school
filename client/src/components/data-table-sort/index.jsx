@@ -35,9 +35,9 @@ export default function DataTableSort(props) {
 
   console.log(props);
 
-  const { modules, students } = useContext(props.context);
+  const { modules, students, parents } = useContext(props.context);
 
-  const rows = modules || students;
+  const rows = modules || students || parents;
 
   const headCells = props.headCells;
 

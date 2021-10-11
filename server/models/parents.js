@@ -18,7 +18,7 @@ module.exports = (seq, DataTypes) => {
       allowNull: false
     },
     UID: {
-      type: DataTypes.INTEGER(32),
+      type: DataTypes.STRING(32),
       allowNull: true,
     },
     dateOfBirth: {

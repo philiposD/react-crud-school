@@ -15,12 +15,12 @@ const router = express.Router();
 // }
 // app.use(cors(corsOptions));
 
-app.use(express.urlencoded({extended: true}));
+app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
-let forceDB = false
+let forceDB = true
 
-models.sequelize.sync({logging: console.log, force: forceDB}).then(result => {
+models.sequelize.sync({ logging: console.log, force: forceDB }).then(result => {
   app.listen(PORT, () => {
     console.log(`Server listening on ${PORT}`);
   });
@@ -37,28 +37,40 @@ models.sequelize.sync({logging: console.log, force: forceDB}).then(result => {
     });
   });
 
+  app.get("/parents/all", (req, res) => {
+    models.parents.findAll().then(data => {
+      res.json({ message: "Hello from server!!!", data: data });
+    });
+  });
+
 
   //ADD
   app.post("/students/add", (req, res) => {
-    console.log('/students/add req.body: ',req.body);
+    console.log('/students/add req.body: ', req.body);
     models.students.build(req.body).save();
     res.send('Student inserted');
   });
 
+  app.post("/parents/add", (req, res) => {
+    console.log('/parents/add req.body: ', req.body);
+    models.parents.build(req.body).save();
+    res.send('Student inserted');
+  });
+
   app.post("/modules/add", (req, res) => {
-    console.log('/modules/add req.body: ',req.body);
+    console.log('/modules/add req.body: ', req.body);
     models.modules.build(req.body).save();
     res.send('Module inserted');
   });
 
   app.post("/courses/add", (req, res) => {
-    console.log('/courses/add req.body: ',req.body);
+    console.log('/courses/add req.body: ', req.body);
     models.courses.build(req.body).save();
     res.send('Course inserted');
   });
 
   app.post("/course-modules/add", (req, res) => {
-    console.log('/course-modules/add req.body: ',req.body);
+    console.log('/course-modules/add req.body: ', req.body);
     models.courseModules.build(req.body).save();
     res.send('courses-modules inserted');
   });
@@ -66,13 +78,20 @@ models.sequelize.sync({logging: console.log, force: forceDB}).then(result => {
   //DELETE
   app.post("/module/delete", (req, res) => {
     console.log('/module/delete:', req.body);
-    models.modules.destroy({where: {id: req.body.id}});
+    models.modules.destroy({ where: { id: req.body.id } });
     res.send('Module deleted');
   });
+
   app.post("/student/delete", (req, res) => {
     console.log('/student/delete:', req.body);
-    models.students.destroy({where: {id: req.body.id}});
+    models.students.destroy({ where: { id: req.body.id } });
     res.send('Student deleted');
+  });
+
+  app.post("/parent/delete", (req, res) => {
+    console.log('/parent/delete:', req.body);
+    models.parents.destroy({ where: { id: req.body.id } });
+    res.send('Parent deleted');
   });
 
 
