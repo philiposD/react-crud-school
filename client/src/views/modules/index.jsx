@@ -28,9 +28,15 @@ export default function Modules() {
 
   const headCells = [
     {
-      id: 'name',
+      id: '',
       numeric: false,
       disablePadding: true,
+      label: '',
+    },
+    {
+      id: 'name',
+      numeric: true,
+      disablePadding: false,
       label: 'Name',
     },
     {
@@ -53,15 +59,21 @@ export default function Modules() {
     }
   ];
 
+  const arrOrder = headCells.slice(1, headCells.length).map(ele => ele.id);
+  // const arrOrder = headCells.slice(1, headCells.length).map(ele => ele.id);
+
   return(
     <>
     {modules !== null
     ? (<ModuleContext.Provider value={value}>
           <AddModule />
           <GridModules />
-          <DataTableSort context={ModuleContext} headCells={headCells}/>
-          {/* <GridStudentsSorting students={students} />
-          <GridStudents students={students} /> */}
+          <DataTableSort
+            context={ModuleContext}
+            headCells={headCells}
+            order={arrOrder}
+            name={'Modules'}
+          />
         </ModuleContext.Provider>
       )
     : (<div></div>)}

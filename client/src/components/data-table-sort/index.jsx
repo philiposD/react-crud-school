@@ -44,6 +44,8 @@ export default function DataTableSort(props) {
 
   const propsOrder = props.order;
 
+  const name = props.name;
+
 function createData(name, calories, fat, carbs, protein) {
   return {
     name,
@@ -123,7 +125,7 @@ function EnhancedTableHead(props) {
         </TableCell>
         {headCells.map((headCell) => (
           <TableCell
-            key={headCell.id}
+            key={headCell.id || parseInt(Math.random() * 1000)}
             align={headCell.numeric ? 'right' : 'left'}
             padding={headCell.disablePadding ? 'none' : 'normal'}
             sortDirection={orderBy === headCell.id ? order : false}
@@ -186,7 +188,7 @@ const EnhancedTableToolbar = (props) => {
           id="tableTitle"
           component="div"
         >
-          Nutrition
+          {name}
         </Typography>
       )}
 
@@ -288,11 +290,11 @@ EnhancedTableToolbar.propTypes = {
       <>
       <TableRow
         hover
-        // onClick={(event) => handleClick(event, row.UID)}
+        // onClick={(event) => handleClick(event, row.id)}
+        // key={row.id}
         role="checkbox"
         aria-checked={isItemSelected}
         tabIndex={-1}
-        key={row.id}
         selected={isItemSelected}
       >
         <TableCell padding="checkbox">
@@ -320,28 +322,9 @@ EnhancedTableToolbar.propTypes = {
 
         {arrFilteredRows.map((item, index) => {
           return (
-            <TableCell align="right">{item}</TableCell>
+            <TableCell align="right" key={index}>{item}</TableCell>
           );
         })}
-{/*
-        <TableCell
-          component="th"
-          id={labelId}
-          scope="row"
-          padding="none"
-        >
-          {row.firstName}
-        </TableCell>
-        <TableCell align="right">{row.lastName}</TableCell>
-        <TableCell align="right">{row.dateOfBirth}</TableCell>
-        <TableCell align="right">{row.UID}</TableCell>
-        <TableCell align="right">{row.emailStudent}</TableCell>
-        <TableCell align="right">{row.phoneStudent}</TableCell>
-        <TableCell align="right">{row.school}</TableCell>
-        <TableCell align="right">{row.class}</TableCell>
-        <TableCell align="right">{row.parentName}</TableCell>
-        <TableCell align="right">{row.phoneParent}</TableCell>
-        <TableCell align="right">{row.emailParent}</TableCell> */}
       </TableRow>
 
       <React.Fragment key={row.id}>
@@ -363,7 +346,7 @@ EnhancedTableToolbar.propTypes = {
     </TableHead>
     <TableBody>
       {[1,2,3].map((historyRow) => (
-        <TableRow key={historyRow.date}>
+        <TableRow key={historyRow.date || parseInt(Math.random() * 10000)}>
           <TableCell component="th" scope="row">
             {historyRow.date}
           </TableCell>
@@ -412,8 +395,6 @@ EnhancedTableToolbar.propTypes = {
                   return (
                     <Row key={row.id} row={row} index={index} />
                   );
-
-
                 })}
               {emptyRows > 0 && (
                 <TableRow
