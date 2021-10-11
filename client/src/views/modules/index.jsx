@@ -50,6 +50,7 @@ export default function Modules() {
     }
   ];
 
+
   const arrOrder = headCells.slice(1, headCells.length).map(ele => ele.id);
   // const arrOrder = headCells.slice(1, headCells.length).map(ele => ele.id);
 
