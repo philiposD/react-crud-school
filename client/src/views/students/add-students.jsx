@@ -71,43 +71,17 @@ export default function AddStudents(props) {
         <TextField
             id="outlined-email-student"
             className='form-text-field'
-            label="Email student"
+            label="Email"
             type="email"
             required
-            {...register('emailStudent')}
+            {...register('email')}
           />
-
-        <TextField
-            id="outlined-email-parent"
-            className='form-text-field'
-            label="Email parent"
-            type="email"
-            required
-            {...register('emailParent')}
-          />
-
         <TextField
             id="outlined-phone-student"
             className='form-text-field'
             label="Phone student"
             type="tel"
-            {...register('phoneStudent')}
-          />
-
-        <TextField
-            id="outlined-phone-parent"
-            className='form-text-field'
-            label="Phone parent"
-            type="tel"
-            {...register('phoneParent')}
-          />
-
-        <TextField
-            id="outlined-parent-name"
-            className='form-text-field'
-            label="Parent name"
-            type="text"
-            {...register('parentName')}
+            {...register('phone')}
           />
 
         <TextField

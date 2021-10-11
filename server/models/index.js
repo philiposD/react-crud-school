@@ -33,6 +33,8 @@ Object.keys(db).forEach(modelName => {
   }
 });
 
+db.students.hasMany(db.parents);
+
 // db.groups.hasMany(db.students);
 // db.groups.hasMany(db.professors);
 // db.students.hasMany(db.studentModules);

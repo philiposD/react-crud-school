@@ -21,27 +21,15 @@ module.exports = (seq, DataTypes) => {
       type: DataTypes.DATEONLY,
       allowNull: true,
     },
-    emailStudent: {
+    email: {
       type: DataTypes.STRING(128),
       allowNull: true
     },
-    emailParent: {
-      type: DataTypes.STRING(128),
-      allowNull: true
-    },
-    phoneStudent: {
-      type: DataTypes.STRING(64),
-      allowNull: true
-    },
-    phoneParent: {
+    phone: {
       type: DataTypes.STRING(64),
       allowNull: true
     },
     UID: {
-      type: DataTypes.STRING(32),
-      allowNull: true,
-    },
-    parentName: {
       type: DataTypes.STRING(32),
       allowNull: true,
     },

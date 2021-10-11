@@ -48,13 +48,13 @@ function StudentsView() {
       id: 'email',
       numeric: true,
       disablePadding: false,
-      label: 'Email student',
+      label: 'Email',
     },
     {
       id: 'phone',
       numeric: true,
       disablePadding: false,
-      label: 'Phone student',
+      label: 'Phone',
     },
     {
       id: 'school',
@@ -67,24 +67,6 @@ function StudentsView() {
       numeric: true,
       disablePadding: false,
       label: 'Class',
-    },
-    {
-      id: 'parentName',
-      numeric: true,
-      disablePadding: false,
-      label: 'Parent',
-    },
-    {
-      id: 'phoneParent',
-      numeric: true,
-      disablePadding: false,
-      label: 'Phone parent',
-    },
-    {
-      id: 'emailParent',
-      numeric: true,
-      disablePadding: false,
-      label: 'Email parent',
     },
   ];
 
