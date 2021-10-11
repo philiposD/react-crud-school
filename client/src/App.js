@@ -145,9 +145,6 @@ function App() {
     setOpen(false);
   };
 
-
-
-
   return (
     <Box sx={{ display: 'flex' }}>
       <Router>

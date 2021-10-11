@@ -21,7 +21,7 @@ function StudentsView() {
     });
   },[]);
 
-  const headCells = [
+  let headCells = [
     {},
     {
       id: 'firstName',
@@ -91,6 +91,15 @@ function StudentsView() {
     },
   ];
 
+  // var tmpHeadCells = headCells;
+
+  const arrOrder = headCells.slice(1, headCells.length).map(ele => ele.id);
+  // var arrOrder = [];
+
+  // arrSortMap.reduce((ac,a) => ({...ac,[a]:students[0][a]}),{});
+
+  debugger
+
     return (
       <>
       {students !== null
@@ -98,7 +107,7 @@ function StudentsView() {
             <AddStudents />
             <GridStudentsSorting students={students} />
             <GridStudents students={students} />
-            <DataTableSort context={StudentContext} headCells={headCells}/>
+            <DataTableSort context={StudentContext} headCells={headCells} order={arrOrder}/>
           </StudentContext.Provider>
         )
       : (<div></div>)}

@@ -21,6 +21,9 @@ import Switch from '@mui/material/Switch';
 import DeleteIcon from '@mui/icons-material/Delete';
 import FilterListIcon from '@mui/icons-material/FilterList';
 import { visuallyHidden } from '@mui/utils';
+import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
+import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
+import Collapse from '@mui/material/Collapse';
 
 
 export default function DataTableSort(props) {
@@ -38,6 +41,8 @@ export default function DataTableSort(props) {
   const rows = modules || students;
 
   const headCells = props.headCells;
+
+  const propsOrder = props.order;
 
 function createData(name, calories, fat, carbs, protein) {
   return {
@@ -260,6 +265,126 @@ EnhancedTableToolbar.propTypes = {
   const emptyRows =
     page > 0 ? Math.max(0, (1 + page) * rowsPerPage - rows.length) : 0;
 
+  function Row(props) {
+    const { row, index } = props;
+    const [open, setOpen] = React.useState(false);
+
+    const isItemSelected = isSelected(row.id);
+    const labelId = `enhanced-table-checkbox-${index}`;
+
+    console.log('PROPS data-table-sort', props);
+
+    window.row = row;
+    let filteredRows = Object.keys(row).filter(ele => ele !== 'createdAt').filter(ele => ele !== 'updatedAt');
+    console.log('order', propsOrder);
+    let filteredRowSorted = propsOrder.reduce((ac,a) => ({...ac,[a]:row[a]}),{});
+    let arrFilteredRows = Object.values(filteredRowSorted);
+    console.log('filtered Rows', filteredRows);
+    console.log('filtered Rows', filteredRowSorted);
+
+    debugger
+
+    return (
+      <>
+      <TableRow
+        hover
+        // onClick={(event) => handleClick(event, row.UID)}
+        role="checkbox"
+        aria-checked={isItemSelected}
+        tabIndex={-1}
+        key={row.id}
+        selected={isItemSelected}
+      >
+        <TableCell padding="checkbox">
+          <Checkbox
+            color="primary"
+            checked={isItemSelected}
+            inputProps={{
+              'aria-labelledby': labelId,
+            }}
+            key={row.id}
+            onClick={(event) => handleClick(event, row.id)}
+          />
+        </TableCell>
+
+        <TableCell>
+          <IconButton
+            aria-label="expand row"
+            size="small"
+            onClick={() => setOpen(!open)}
+          >
+            {open ? <KeyboardArrowUpIcon /> : <KeyboardArrowDownIcon />}
+          </IconButton>
+        </TableCell>
+
+
+        {arrFilteredRows.map((item, index) => {
+          return (
+            <TableCell align="right">{item}</TableCell>
+          );
+        })}
+{/*
+        <TableCell
+          component="th"
+          id={labelId}
+          scope="row"
+          padding="none"
+        >
+          {row.firstName}
+        </TableCell>
+        <TableCell align="right">{row.lastName}</TableCell>
+        <TableCell align="right">{row.dateOfBirth}</TableCell>
+        <TableCell align="right">{row.UID}</TableCell>
+        <TableCell align="right">{row.emailStudent}</TableCell>
+        <TableCell align="right">{row.phoneStudent}</TableCell>
+        <TableCell align="right">{row.school}</TableCell>
+        <TableCell align="right">{row.class}</TableCell>
+        <TableCell align="right">{row.parentName}</TableCell>
+        <TableCell align="right">{row.phoneParent}</TableCell>
+        <TableCell align="right">{row.emailParent}</TableCell> */}
+      </TableRow>
+
+      <React.Fragment key={row.id}>
+      <TableRow >
+<TableCell style={{ paddingBottom: 0, paddingTop: 0 }} colSpan={6}>
+<Collapse in={open} timeout="auto" unmountOnExit>
+<Box sx={{ margin: 1 }}>
+  <Typography variant="h6" gutterBottom component="div">
+    History
+  </Typography>
+  <Table size="small" aria-label="purchases">
+    <TableHead>
+      <TableRow>
+        <TableCell>Date</TableCell>
+        <TableCell>Customer</TableCell>
+        <TableCell align="right">Amount</TableCell>
+        <TableCell align="right">Total price ($)</TableCell>
+      </TableRow>
+    </TableHead>
+    <TableBody>
+      {[1,2,3].map((historyRow) => (
+        <TableRow key={historyRow.date}>
+          <TableCell component="th" scope="row">
+            {historyRow.date}
+          </TableCell>
+          <TableCell>{historyRow.customerId}</TableCell>
+          <TableCell align="right">{historyRow.amount}</TableCell>
+          <TableCell align="right">
+            {Math.round(historyRow.amount * 123 * 100) / 100}
+          </TableCell>
+        </TableRow>
+      ))}
+    </TableBody>
+  </Table>
+</Box>
+</Collapse>
+</TableCell>
+</TableRow>
+</React.Fragment>
+      </>
+    );
+  }
+
   return (
     <Box sx={{ width: '100%' }}>
       <Paper sx={{ width: '100%', mb: 2 }}>
@@ -284,42 +409,11 @@ EnhancedTableToolbar.propTypes = {
               {stableSort(rows, getComparator(order, orderBy))
                 .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                 .map((row, index) => {
-                  const isItemSelected = isSelected(row.id);
-                  const labelId = `enhanced-table-checkbox-${index}`;
-
                   return (
-                    <TableRow
-                      hover
-                      onClick={(event) => handleClick(event, row.id)}
-                      role="checkbox"
-                      aria-checked={isItemSelected}
-                      tabIndex={-1}
-                      key={row.id}
-                      selected={isItemSelected}
-                    >
-                      <TableCell padding="checkbox">
-                        <Checkbox
-                          color="primary"
-                          checked={isItemSelected}
-                          inputProps={{
-                            'aria-labelledby': labelId,
-                          }}
-                        />
-                      </TableCell>
-                      <TableCell
-                        // component="th"
-                        // id={labelId}
-                        // scope="row"
-                        // padding="none"
-                      >
-                        {row.name}
-                      </TableCell>
-                      <TableCell align="right">{row.calories}</TableCell>
-                      <TableCell align="right">{row.fat}</TableCell>
-                      <TableCell align="right">{row.carbs}</TableCell>
-                      <TableCell align="right">{row.protein}</TableCell>
-                    </TableRow>
+                    <Row key={row.id} row={row} index={index} />
                   );
+
+
                 })}
               {emptyRows > 0 && (
                 <TableRow
