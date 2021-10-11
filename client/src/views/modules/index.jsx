@@ -26,13 +26,40 @@ export default function Modules() {
     });
   },[]);
 
+  const headCells = [
+    {
+      id: 'name',
+      numeric: false,
+      disablePadding: true,
+      label: 'Name',
+    },
+    {
+      id: 'type',
+      numeric: true,
+      disablePadding: false,
+      label: 'Type',
+    },
+    {
+      id: 'price',
+      numeric: true,
+      disablePadding: false,
+      label: 'Price',
+    },
+    {
+      id: 'notes',
+      numeric: false,
+      disablePadding: false,
+      label: 'Notes',
+    }
+  ];
+
   return(
     <>
     {modules !== null
     ? (<ModuleContext.Provider value={value}>
           <AddModule />
           <GridModules />
-          <DataTableSort context={ModuleContext}/>
+          <DataTableSort context={ModuleContext} headCells={headCells}/>
           {/* <GridStudentsSorting students={students} />
           <GridStudents students={students} /> */}
         </ModuleContext.Provider>

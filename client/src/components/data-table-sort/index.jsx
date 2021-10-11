@@ -33,9 +33,11 @@ export default function DataTableSort(props) {
 
   console.log(props);
 
-  const { modules } = useContext(props.context);
+  const { modules, students } = useContext(props.context);
 
-  const rows = modules;
+  const rows = modules || students;
+
+  const headCells = props.headCells;
 
 function createData(name, calories, fat, carbs, protein) {
   return {
@@ -92,39 +94,6 @@ function stableSort(array, comparator) {
   });
   return stabilizedThis.map((el) => el[0]);
 }
-
-const headCells = [
-  {
-    id: 'name',
-    numeric: false,
-    disablePadding: true,
-    label: 'Dessert (100g serving)',
-  },
-  {
-    id: 'calories',
-    numeric: true,
-    disablePadding: false,
-    label: 'Calories',
-  },
-  {
-    id: 'fat',
-    numeric: true,
-    disablePadding: false,
-    label: 'Fat (g)',
-  },
-  {
-    id: 'carbs',
-    numeric: true,
-    disablePadding: false,
-    label: 'Carbs (g)',
-  },
-  {
-    id: 'protein',
-    numeric: true,
-    disablePadding: false,
-    label: 'Protein (g)',
-  },
-];
 
 function EnhancedTableHead(props) {
   const { onSelectAllClick, order, orderBy, numSelected, rowCount, onRequestSort } =
@@ -315,17 +284,17 @@ EnhancedTableToolbar.propTypes = {
               {stableSort(rows, getComparator(order, orderBy))
                 .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                 .map((row, index) => {
-                  const isItemSelected = isSelected(row.name);
+                  const isItemSelected = isSelected(row.id);
                   const labelId = `enhanced-table-checkbox-${index}`;
 
                   return (
                     <TableRow
                       hover
-                      onClick={(event) => handleClick(event, row.name)}
+                      onClick={(event) => handleClick(event, row.id)}
                       role="checkbox"
                       aria-checked={isItemSelected}
                       tabIndex={-1}
-                      key={row.name}
+                      key={row.id}
                       selected={isItemSelected}
                     >
                       <TableCell padding="checkbox">
@@ -338,10 +307,10 @@ EnhancedTableToolbar.propTypes = {
                         />
                       </TableCell>
                       <TableCell
-                        component="th"
-                        id={labelId}
-                        scope="row"
-                        padding="none"
+                        // component="th"
+                        // id={labelId}
+                        // scope="row"
+                        // padding="none"
                       >
                         {row.name}
                       </TableCell>

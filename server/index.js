@@ -18,7 +18,7 @@ const router = express.Router();
 app.use(express.urlencoded({extended: true}));
 app.use(express.json());
 
-let forceDB = true
+let forceDB = false
 
 models.sequelize.sync({logging: console.log, force: forceDB}).then(result => {
   app.listen(PORT, () => {

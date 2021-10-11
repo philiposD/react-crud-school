@@ -2,7 +2,7 @@ const db = require("./index") // import the Database connection path;
 const seq = db.sequelize;
 
 module.exports = (seq, DataTypes) => {
-  const Professors = seq.define("professors", {
+  const Professors = seq.define("parents", {
     id: {
       type: DataTypes.INTEGER,
       autoIncrement: true,
@@ -33,7 +33,7 @@ module.exports = (seq, DataTypes) => {
       type: DataTypes.STRING(64),
       allowNull: false
     },
-    school: {
+    occupation: {
       type: DataTypes.STRING(32),
       allowNull: true
     }

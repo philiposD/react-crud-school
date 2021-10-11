@@ -21,6 +21,76 @@ function StudentsView() {
     });
   },[]);
 
+  const headCells = [
+    {},
+    {
+      id: 'firstName',
+      numeric: false,
+      disablePadding: true,
+      label: 'First name',
+    },
+    {
+      id: 'lastName',
+      numeric: true,
+      disablePadding: false,
+      label: 'Last name',
+    },
+    {
+      id: 'dob',
+      numeric: true,
+      disablePadding: false,
+      label: 'Date of birth',
+    },
+    {
+      id: 'uid',
+      numeric: true,
+      disablePadding: false,
+      label: 'UID - CNP',
+    },
+    {
+      id: 'email',
+      numeric: true,
+      disablePadding: false,
+      label: 'Email student',
+    },
+    {
+      id: 'phone',
+      numeric: true,
+      disablePadding: false,
+      label: 'Phone student',
+    },
+    {
+      id: 'school',
+      numeric: true,
+      disablePadding: false,
+      label: 'School',
+    },
+    {
+      id: 'class',
+      numeric: true,
+      disablePadding: false,
+      label: 'Class',
+    },
+    {
+      id: 'parentName',
+      numeric: true,
+      disablePadding: false,
+      label: 'Parent',
+    },
+    {
+      id: 'phoneParent',
+      numeric: true,
+      disablePadding: false,
+      label: 'Phone parent',
+    },
+    {
+      id: 'emailParent',
+      numeric: true,
+      disablePadding: false,
+      label: 'Email parent',
+    },
+  ];
+
     return (
       <>
       {students !== null
@@ -28,7 +98,7 @@ function StudentsView() {
             <AddStudents />
             <GridStudentsSorting students={students} />
             <GridStudents students={students} />
-            <DataTableSort context={StudentContext}/>
+            <DataTableSort context={StudentContext} headCells={headCells}/>
           </StudentContext.Provider>
         )
       : (<div></div>)}
