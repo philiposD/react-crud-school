@@ -7,6 +7,7 @@ import AddStudents from './add-students';
 import GridStudents from './grid-students';
 import GridStudentsSorting from './grid-students-sorting';
 import { StudentContext } from './studentContext';
+import DataTableSort from '../../components/data-table-sort';
 
 function StudentsView() {
   const [students, setStudents] = useState(null);
@@ -27,6 +28,7 @@ function StudentsView() {
             <AddStudents />
             <GridStudentsSorting students={students} />
             <GridStudents students={students} />
+            <DataTableSort context={StudentContext}/>
           </StudentContext.Provider>
         )
       : (<div></div>)}

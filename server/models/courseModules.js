@@ -2,26 +2,30 @@ const db = require("./index") // import the Database connection path;
 const seq = db.sequelize;
 
 module.exports = (seq, DataTypes) => {
-  const StudentModules = seq.define("studentModules", {
+  const CourseModules = seq.define("courseModules", {
     id: {
       type: DataTypes.INTEGER,
       autoIncrement: true,
       primaryKey: true,
       allowNull: false
     },
-    scoreSimulation: {
+    courseId: {
       type: DataTypes.INTEGER,
-      allowNull: true
+      allowNull: false,
     },
-    scoreExam: {
+    moduleId: {
       type: DataTypes.INTEGER,
-      allowNull: true
+      allowNull: false,
     },
-    note: {
+    registrationDate: {
+      type: DataTypes.DATEONLY,
+      allowNull: true,
+    },
+    duration: {
       type: DataTypes.STRING,
-      allowNull: true
+      allowNull: true,
     },
   });
 
-  return StudentModules;
+  return CourseModules;
 };

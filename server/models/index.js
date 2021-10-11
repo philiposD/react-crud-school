@@ -33,13 +33,11 @@ Object.keys(db).forEach(modelName => {
   }
 });
 
-db.groups.hasMany(db.students);
-db.groups.hasMany(db.professors);
-db.students.hasMany(db.studentModules);
-db.modules.hasMany(db.studentModules);
-db.courses.belongsToMany(db.modules, { through: 'coursesModules' });
-
-console.log('test');
+// db.groups.hasMany(db.students);
+// db.groups.hasMany(db.professors);
+// db.students.hasMany(db.studentModules);
+// db.modules.hasMany(db.studentModules);
+// db.courses.belongsToMany(db.modules, { through: 'courseModules', onDelete: 'NO ACTION', onUpdate: 'NO ACTION' });
 
 db.sequelize = sequelize;
 db.Sequelize = Sequelize;

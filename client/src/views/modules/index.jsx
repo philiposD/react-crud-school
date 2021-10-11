@@ -11,6 +11,7 @@ import { ModuleContext } from './moduleContext';
 import { useEffect, useState, React, useMemo } from 'react';
 import AddModule from './add-module';
 import GridModules from './grid-modules';
+import DataTableSort from '../../components/data-table-sort';
 
 
 export default function Modules() {
@@ -31,6 +32,7 @@ export default function Modules() {
     ? (<ModuleContext.Provider value={value}>
           <AddModule />
           <GridModules />
+          <DataTableSort context={ModuleContext}/>
           {/* <GridStudentsSorting students={students} />
           <GridStudents students={students} /> */}
         </ModuleContext.Provider>

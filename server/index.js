@@ -55,15 +55,14 @@ models.sequelize.sync({logging: console.log, force: forceDB}).then(result => {
     res.send('Course inserted');
   });
 
-  app.post("/courses-modules/add", (req, res) => {
-    console.log('/courses-modules/add req.body: ',req.body);
-    models.coursesModules.build(req.body).save();
+  app.post("/course-modules/add", (req, res) => {
+    console.log('/course-modules/add req.body: ',req.body);
+    models.courseModules.build(req.body).save();
     res.send('courses-modules inserted');
   });
 
 
   app.use('/', router);
-
 
 }).catch(err => {
   console.log(err);
