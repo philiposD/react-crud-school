@@ -2,7 +2,11 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
-import reportWebVitals from './reportWebVitals';
+import reportWebVitals from './reportWebVitals'
+
+window.Office = {
+  Models: {},
+};
 
 ReactDOM.render(
   <React.StrictMode>

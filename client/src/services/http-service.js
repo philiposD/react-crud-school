@@ -10,7 +10,10 @@ export const fetchStudents = (param) => {
 export const fetchModules = (param) => {
   console.log(param);
   return new Promise((resolve, reject) => {
-    axios.get('/modules/all').then(res => {resolve(res.data)});
+    axios.get('/modules/all').then(res => {
+      resolve(res.data);
+      window.Office.Models.modules = res.data.data;
+    });
   });
 }
 

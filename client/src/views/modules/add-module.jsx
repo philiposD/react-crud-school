@@ -11,7 +11,7 @@ import { fetchModules, fetchStudents } from '../../services/http-service';
 import { ModuleContext } from './moduleContext';
 
 export default function AddModule (props) {
-  const { register, handleSubmit, formState: { errors }} = useForm();
+  const { register, handleSubmit, formState: { errors }, setValue} = useForm();
   const [dateValue, setDateValue] = React.useState(new Date('2000-08-18T21:11:54'));
 
   const { setModules } = useContext(ModuleContext);

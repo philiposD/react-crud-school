@@ -218,6 +218,7 @@ const EnhancedTableToolbar = (props) => {
 function handleDelete() {
   selected.forEach(ele => deleteCallback(ele));
   fetchData().then(res => setData(res.data));
+  setSelected([]);
 }
 
 EnhancedTableToolbar.propTypes = {
@@ -232,7 +233,7 @@ EnhancedTableToolbar.propTypes = {
 
   const handleSelectAllClick = (event) => {
     if (event.target.checked) {
-      const newSelecteds = rows.map((n) => n.name);
+      const newSelecteds = rows.map((n) => n.id);
       setSelected(newSelecteds);
       return;
     }
@@ -294,8 +295,6 @@ EnhancedTableToolbar.propTypes = {
     let arrFilteredRows = Object.values(filteredRowSorted);
     console.log('filtered Rows', filteredRows);
     console.log('filtered Rows', filteredRowSorted);
-
-    debugger
 
     return (
       <>

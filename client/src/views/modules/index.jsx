@@ -1,16 +1,8 @@
 import './index.scss';
-import { useForm } from 'react-hook-form';
-import { TextField, Button } from '@mui/material';
-import axios from 'axios';
-import DesktopDatePicker from '@mui/lab/DesktopDatePicker';
-import MobileDatePicker from '@mui/lab/MobileDatePicker';
-import LocalizationProvider from '@mui/lab/LocalizationProvider';
-import AdapterDateFns from '@mui/lab/AdapterDateFns';
 import { fetchModules, deleteModule } from '../../services/http-service';
 import { ModuleContext } from './moduleContext';
 import { useEffect, useState, React, useMemo } from 'react';
 import AddModule from './add-module';
-import GridModules from './grid-modules';
 import DataTableSort from '../../components/data-table-sort';
 
 export default function Modules() {
@@ -66,7 +58,6 @@ export default function Modules() {
     {modules !== null
     ? (<ModuleContext.Provider value={value}>
           <AddModule />
-          <GridModules />
           <DataTableSort
             context={ModuleContext}
             headCells={headCells}
