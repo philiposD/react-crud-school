@@ -30,6 +30,7 @@ import PersonIcon from '@mui/icons-material/Person';
 import RecordVoiceOverIcon from '@mui/icons-material/RecordVoiceOver';
 import GroupIcon from '@mui/icons-material/Group';
 import ViewModuleIcon from '@mui/icons-material/ViewModule';
+import AccessibilityNewIcon from '@mui/icons-material/AccessibilityNew';
 
 const drawerWidth = 240;
 
@@ -48,11 +49,18 @@ const menuItems = [
     main: () => buildWrapper(<Students/>)
   },
   {
+    name: 'Parents',
+    link: '/parents',
+    icon: <AccessibilityNewIcon />,
+    main: () => buildWrapper(<Students/>)
+  },
+  {
     name: 'Professors',
     link: '/professors',
     icon: <RecordVoiceOverIcon />,
     main: () => buildWrapper(<Students/>)
   },
+
   {
     name: 'Modules',
     link: '/modules',
