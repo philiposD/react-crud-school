@@ -36,13 +36,13 @@ function StudentsView() {
       label: 'Last name',
     },
     {
-      id: 'dob',
+      id: 'dateOfBirth',
       numeric: true,
       disablePadding: false,
       label: 'Date of birth',
     },
     {
-      id: 'uid',
+      id: 'UID',
       numeric: true,
       disablePadding: false,
       label: 'UID - CNP',
