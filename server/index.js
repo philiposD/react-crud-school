@@ -43,6 +43,12 @@ models.sequelize.sync({ logging: console.log, force: forceDB }).then(result => {
     });
   });
 
+  app.get("/professors/all", (req, res) => {
+    models.professors.findAll().then(data => {
+      res.json({ message: "Hello from server!!!", data: data });
+    });
+  });
+
 
   //ADD
   app.post("/students/add", (req, res) => {
@@ -54,6 +60,12 @@ models.sequelize.sync({ logging: console.log, force: forceDB }).then(result => {
   app.post("/parents/add", (req, res) => {
     console.log('/parents/add req.body: ', req.body);
     models.parents.build(req.body).save();
+    res.send('Student inserted');
+  });
+
+  app.post("/professors/add", (req, res) => {
+    console.log('/professors/add req.body: ', req.body);
+    models.professors.build(req.body).save();
     res.send('Student inserted');
   });
 
@@ -75,6 +87,10 @@ models.sequelize.sync({ logging: console.log, force: forceDB }).then(result => {
     res.send('courses-modules inserted');
   });
 
+
+
+
+
   //DELETE
   app.post("/module/delete", (req, res) => {
     console.log('/module/delete:', req.body);
@@ -91,6 +107,13 @@ models.sequelize.sync({ logging: console.log, force: forceDB }).then(result => {
   app.post("/parent/delete", (req, res) => {
     console.log('/parent/delete:', req.body);
     models.parents.destroy({ where: { id: req.body.id } });
+    res.send('Parent deleted');
+  });
+
+
+  app.post("/professor/delete", (req, res) => {
+    console.log('/professor/delete:', req.body);
+    models.professors.destroy({ where: { id: req.body.id } });
     res.send('Parent deleted');
   });
 

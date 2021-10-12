@@ -27,6 +27,16 @@ export const fetchParents = (param) => {
   });
 }
 
+export const fetchProfessors = (param) => {
+  console.log(param);
+  return new Promise((resolve, reject) => {
+    axios.get('/professors/all').then(res => {
+      resolve(res.data);
+      window.Office.Models.professors = res.data.data;
+    });
+  });
+}
+
 export const deleteModule = (param) => {
   console.log(param);
   return new Promise((resolve, reject) => {
@@ -45,6 +55,13 @@ export const deleteParent = (param) => {
   console.log(param);
   return new Promise((resolve, reject) => {
     axios.post('/parent/delete', { id: param }).then(res => { resolve(res.data) });
+  });
+}
+
+export const deleteProfessor = (param) => {
+  console.log(param);
+  return new Promise((resolve, reject) => {
+    axios.post('/professor/delete', { id: param }).then(res => { resolve(res.data) });
   });
 }
 

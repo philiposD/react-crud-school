@@ -4,6 +4,7 @@ import Main from './views/dashboard';
 import Students from './views/students';
 import Modules from './views/modules';
 import ParentsView from './views/parents';
+import ProfessorsView from './views/professors';
 import Sidebar from './components/sidebar';
 import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 
@@ -59,7 +60,7 @@ const menuItems = [
     name: 'Professors',
     link: '/professors',
     icon: <RecordVoiceOverIcon />,
-    main: () => buildWrapper(<Students />)
+    main: () => buildWrapper(<ProfessorsView />)
   },
 
   {
