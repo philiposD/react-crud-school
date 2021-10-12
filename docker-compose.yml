@@ -1,0 +1,41 @@
+version: "3.8"
+
+services:
+  client:
+    build: ./client
+    ports:
+      - "3000:3000"
+  server:
+    depends_on:
+      - mysqldb
+    build: ./server
+    # command: bash -c 'while !</var/lib/mysql/3306; do sleep 1; done; npm start'
+    command: bash -c 'sleep 5; npm start'
+    restart: unless-stopped
+    env_file: ./.env
+    ports:
+      - $SERVER_NODE_LOCAL_PORT:$SERVER_NODE_DOCKER_PORT
+    environment:
+      - DB_HOST=$MYSQLDB_HOST
+      - DB_USER=$MYSQLDB_USER
+      - DB_PASSWORD=$MYSQLDB_ROOT_PASSWORD
+      - DB_NAME=$MYSQLDB_DATABASE
+      - DB_PORT=$MYSQLDB_DOCKER_PORT
+    stdin_open: true
+    tty: true
+  mysqldb:
+    image: mysql:5.7
+    restart: unless-stopped
+    env_file: ./.env
+    environment:
+      - MYSQL_ROOT_PASSWORD=$MYSQLDB_ROOT_PASSWORD
+      - MYSQL_DATABASE=crud_boilerplate
+    ports:
+      - $MYSQLDB_LOCAL_PORT:$MYSQLDB_DOCKER_PORT
+    expose:
+      - $MYSQLDB_DOCKER_PORT
+    volumes:
+      - db:/var/lib/mysql
+
+volumes:
+  db:
