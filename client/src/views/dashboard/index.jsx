@@ -17,7 +17,7 @@ function Dashboard() {
 
   return (
     <div id="dashboard">
-      <p>Dashboarddd</p>
+      <p>Dashboard</p>
     </div>
   );
 }

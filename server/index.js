@@ -25,7 +25,7 @@ models.sequelize.sync({ logging: console.log, force: forceDB }).then(result => {
     console.log(`Server listening on ${PORT}`);
   });
 
-  app.get("/students/all", (req, res) => {
+  app.get("/students/alla", (req, res) => {
     models.students.findAll().then(data => {
       res.json({ message: "Hello from server!!!", data: data });
     });

@@ -1,96 +1,97 @@
 // import logo from './logo.svg';
-import './index.scss';
-import '../../services/http-service';
-import { fetchStudents, deleteStudent } from '../../services/http-service';
-import { useEffect, useState, React, useMemo } from 'react';
-import AddStudents from './add-students';
-import { StudentContext } from './studentContext';
-import DataTableSort from '../../components/data-table-sort';
+import "./index.scss";
+import "../../services/http-service";
+import { fetchStudents, deleteStudent } from "../../services/http-service";
+import { useEffect, useState, React, useMemo } from "react";
+import AddStudents from "./add-students";
+import { StudentContext } from "./studentContext";
+import DataTableSort from "../../components/data-table-sort";
 
 function StudentsView() {
   const [students, setStudents] = useState(null);
-  const value = useMemo(() => ({students, setStudents}), [students]);
+  const value = useMemo(() => ({ students, setStudents }), [students]);
 
   useEffect(() => {
-    fetchStudents('param123').then(res => {
-      console.log('fetchStudents', res);
+    fetchStudents("param123").then((res) => {
+      console.log("fetchStudents", res);
       setStudents(res.data);
     });
-  },[]);
+  }, []);
 
   let headCells = [
     {},
     {
-      id: 'firstName',
+      id: "firstName",
       numeric: false,
       disablePadding: true,
-      label: 'First name',
+      label: "First name",
     },
     {
-      id: 'lastName',
+      id: "lastName",
       numeric: true,
       disablePadding: false,
-      label: 'Last name',
+      label: "Last name",
     },
     {
-      id: 'dateOfBirth',
+      id: "dateOfBirth",
       numeric: true,
       disablePadding: false,
-      label: 'Date of birth',
+      label: "Date of birth",
     },
     {
-      id: 'UID',
+      id: "UID",
       numeric: true,
       disablePadding: false,
-      label: 'UID - CNP',
+      label: "UID - CNP",
     },
     {
-      id: 'email',
+      id: "email",
       numeric: true,
       disablePadding: false,
-      label: 'Email',
+      label: "Email",
     },
     {
-      id: 'phone',
+      id: "phone",
       numeric: true,
       disablePadding: false,
-      label: 'Phone',
+      label: "Phone",
     },
     {
-      id: 'school',
+      id: "school",
       numeric: true,
       disablePadding: false,
-      label: 'School',
+      label: "School",
     },
     {
-      id: 'class',
+      id: "class",
       numeric: true,
       disablePadding: false,
-      label: 'Class',
+      label: "Class",
     },
   ];
 
-  const arrOrder = headCells.slice(1, headCells.length).map(ele => ele.id);
+  const arrOrder = headCells.slice(1, headCells.length).map((ele) => ele.id);
 
-    return (
-      <>
-      {students !== null
-      ? (<StudentContext.Provider value={value}>
-            <AddStudents />
-            <DataTableSort
-              context={StudentContext}
-              headCells={headCells}
-              order={arrOrder}
-              name={'Students'}
-              deleteCallback={deleteStudent}
-              fetchData={fetchStudents}
-              setData={setStudents}
-            />
-          </StudentContext.Provider>
-        )
-      : (<div></div>)}
-      </>
-    );
+  return (
+    <>
+      {students !== null ? (
+        <StudentContext.Provider value={value}>
+          <AddStudents />
+          <DataTableSort
+            context={StudentContext}
+            headCells={headCells}
+            order={arrOrder}
+            name={"Students"}
+            deleteCallback={deleteStudent}
+            fetchData={fetchStudents}
+            setData={setStudents}
+          />
+        </StudentContext.Provider>
+      ) : (
+        <div></div>
+      )}
+    </>
+  );
 }
 
 export default StudentsView;
