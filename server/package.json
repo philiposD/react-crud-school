@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start": "node index.js",
-    "start2": "nodemon index.js",
+    "start.dev": "nodemon index.js",
     "start-refresh": "nodemon index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -20,5 +20,8 @@
     "mysql2": "^2.3.0",
     "sequelize": "^6.6.5",
     "sequelize-cli": "^6.2.0"
+  },
+  "devDependencies": {
+    "nodemon": "^1.14.12"
   }
 }

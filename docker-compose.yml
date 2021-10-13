@@ -22,24 +22,21 @@ services:
       - node_modules_client:/src/node_modules
     ports:
       - "3000:3000"
-    # environment:
-    # CHOKIDAR_USEPOLLING: "true"
 
   server:
     depends_on:
       - mysqldb
     build: ./server
     # command: bash -c 'while !</var/lib/mysql/3306; do sleep 1; done; npm start'
-    command: bash -c 'sleep 1; npm start'
+    # command: bash -c 'sleep 1; npm start'
     restart: unless-stopped
     env_file: ./.env
     ports:
       - $SERVER_NODE_LOCAL_PORT:$SERVER_NODE_DOCKER_PORT
     volumes:
       - ./server:/src/
-      - node_modules_server:/src/node_modules
+      - /src/node_modules
     environment:
-      # CHOKIDAR_USEPOLLING: "true"
       - DB_HOST=$MYSQLDB_HOST
       - DB_USER=$MYSQLDB_USER
       - DB_PASSWORD=$MYSQLDB_ROOT_PASSWORD
@@ -50,5 +47,5 @@ services:
 
 volumes:
   node_modules_client:
-  node_modules_server:
+  # node_modules_server:
   db:

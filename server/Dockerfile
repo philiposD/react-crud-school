@@ -14,4 +14,4 @@ ENV PORT=3001
 EXPOSE 3001
 
 #exec form
-CMD [ "npm", "start:watch" ]
+CMD [ "npm", "run", "start.dev" ]
