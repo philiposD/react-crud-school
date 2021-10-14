@@ -110,13 +110,28 @@ models.sequelize.sync({ logging: console.log, force: forceDB }).then(result => {
     res.send('Parent deleted');
   });
 
-
   app.post("/professor/delete", (req, res) => {
     console.log('/professor/delete:', req.body);
     models.professors.destroy({ where: { id: req.body.id } });
     res.send('Parent deleted');
   });
 
+
+  //EDIT
+  app.post("/student/edit", (req, res) => {
+    console.log("/student/edit body:", req.body);
+    models.students.update({
+      'firstName': req.body.firstName,
+      'lastName': req.body.lastName,
+      'UID': req.body.UID,
+      'email': req.body.email,
+      'phone': req.body.phone,
+      'school': req.body.school,
+      'class': req.body.class,
+      'dateOfBirth': req.body.dateOfBirth,
+    }, { where: { id: req.body.id } });
+    res.send("Edit student");
+  });
 
   app.use('/', router);
 

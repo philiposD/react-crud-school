@@ -15,6 +15,7 @@ import Typography from "@mui/material/Typography";
 import Paper from "@mui/material/Paper";
 import Checkbox from "@mui/material/Checkbox";
 import IconButton from "@mui/material/IconButton";
+import EditIcon from "@mui/icons-material/Edit";
 import Tooltip from "@mui/material/Tooltip";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import Switch from "@mui/material/Switch";
@@ -28,28 +29,32 @@ import Collapse from "@mui/material/Collapse";
 export default function DataTableSort(props) {
   const [order, setOrder] = React.useState("asc");
   const [orderBy, setOrderBy] = React.useState("calories");
-  const [selected, setSelected] = React.useState([]);
+  // const [selected, setSelected] = React.useState([]);
   const [page, setPage] = React.useState(0);
   const [dense, setDense] = React.useState(false);
   const [rowsPerPage, setRowsPerPage] = React.useState(5);
 
   console.log(props);
 
-  const { modules, students, parents, professors } = useContext(props.context);
-
+  const {
+    modules,
+    students,
+    parents,
+    professors,
+    selected,
+    setSelected,
+    mode,
+    setMode,
+    setValue,
+    setFocus,
+    setFormValues,
+  } = useContext(props.context);
   const rows = modules || students || parents || professors;
 
-  const headCells = props.headCells;
-
+  const { headCells, name, deleteCallback, fetchData, setData } = props;
   const propsOrder = props.order;
 
-  const name = props.name;
-
-  const deleteCallback = props.deleteCallback;
-
-  const fetchData = props.fetchData;
-
-  const setData = props.setData;
+  // debugger;
 
   function createData(name, calories, fat, carbs, protein) {
     return {
@@ -192,12 +197,24 @@ export default function DataTableSort(props) {
           </Typography>
         )}
 
-        {numSelected > 0 ? (
-          <Tooltip title="Delete">
-            <IconButton onClick={handleDelete}>
-              <DeleteIcon />
+        {numSelected === 1 ? (
+          <Tooltip title="Edit">
+            <IconButton onClick={handleEdit}>
+              <EditIcon />
             </IconButton>
           </Tooltip>
+        ) : (
+          <></>
+        )}
+
+        {numSelected > 0 ? (
+          <>
+            <Tooltip title="Delete">
+              <IconButton onClick={handleDelete}>
+                <DeleteIcon />
+              </IconButton>
+            </Tooltip>
+          </>
         ) : (
           <Tooltip title="Filter list">
             <IconButton>
@@ -208,6 +225,32 @@ export default function DataTableSort(props) {
       </Toolbar>
     );
   };
+
+  function handleEdit(event) {
+    // debugger;
+    setMode("edit");
+    // setFormValues(Object.entries(rows.find((ele) => ele.id === selected[0])));
+    setFormValues(rows.find((ele) => ele.id === selected[0]));
+    // Object.entries(rows.find((ele) => ele.id === selected[0])).forEach(
+    //   (ele) => {
+    //     if (ele[0] !== undefined) {
+    //       console.log("----", ele[0]);
+    //       setValue(ele[0], ele[1], { shouldValidate: true });
+    //       // setFocus(ele[0]);
+    //     }
+    //   }
+    // );
+    // setFocus("firstName");
+    // rows
+    //   .find((ele) => ele.id === selected[0])
+    //   .forEach((ele) => {
+    //     console.log(ele);
+    //     //
+    //   });
+    // setData(rows.find((ele) => ele.id === selected[0]));
+
+    console.log(event, mode);
+  }
 
   function handleDelete() {
     selected.forEach((ele) => deleteCallback(ele));
@@ -236,6 +279,7 @@ export default function DataTableSort(props) {
 
   const handleClick = (event, name) => {
     const selectedIndex = selected.indexOf(name);
+    // debugger;
     let newSelected = [];
 
     if (selectedIndex === -1) {
@@ -249,6 +293,10 @@ export default function DataTableSort(props) {
         selected.slice(0, selectedIndex),
         selected.slice(selectedIndex + 1)
       );
+    }
+
+    if (!event.target.checked) {
+      setMode("insert");
     }
 
     setSelected(newSelected);

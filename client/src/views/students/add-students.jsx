@@ -1,108 +1,166 @@
-
-import './index.scss';
-import { useForm } from 'react-hook-form';
-import { TextField, Button } from '@mui/material';
-import axios from 'axios';
-import DesktopDatePicker from '@mui/lab/DesktopDatePicker';
-import MobileDatePicker from '@mui/lab/MobileDatePicker';
-import LocalizationProvider from '@mui/lab/LocalizationProvider';
-import AdapterDateFns from '@mui/lab/AdapterDateFns';
-import React, { useContext, useState } from 'react';
-import { fetchStudents } from '../../services/http-service';
-import { StudentContext } from './studentContext';
+import "./index.scss";
+import { useForm } from "react-hook-form";
+import { TextField, Button } from "@mui/material";
+import axios from "axios";
+import DesktopDatePicker from "@mui/lab/DesktopDatePicker";
+import MobileDatePicker from "@mui/lab/MobileDatePicker";
+import LocalizationProvider from "@mui/lab/LocalizationProvider";
+import AdapterDateFns from "@mui/lab/AdapterDateFns";
+import React, { useContext, useState, useEffect } from "react";
+import { fetchStudents } from "../../services/http-service";
+import { StudentContext } from "./studentContext";
 
 export default function AddStudents(props) {
-  const { register, handleSubmit, formState: { errors }} = useForm();
-  const [dateValue, setDateValue] = React.useState(new Date('2000-08-18T21:11:54'));
+  const {
+    register,
+    handleSubmit,
+    setValue,
+    formState: { errors },
+  } = useForm();
 
-  const {setStudents } = useContext(StudentContext);
+  const [dateValue, setDateValue] = React.useState(
+    new Date("2000-08-18T21:11:54")
+  );
 
-  console.log('AddStudents', props);
+  const formValuesAdd = props.formValues;
+
+  const {
+    setStudents,
+    mode,
+    formValues,
+    // register,
+    // handleSubmit,
+    // setValue,
+    // formValues,
+    // setFormValues,
+  } = useContext(StudentContext);
+
+  console.log("add student", props);
+
+  useEffect(() => {
+    console.log("props.formValues:", formValues);
+
+    Object.entries(props.formValues).forEach((ele) => {
+      if (ele[0] !== undefined) {
+        console.log("----", ele[0]);
+        setValue(ele[0], ele[1], { shouldValidate: true });
+        // setFocus(ele[0]);
+      }
+    });
+
+    // setValue("firstName", "value", { shouldValidate: true });
+    // setValue("lastName", "gigi", { shouldValidate: true });
+  }, [props.formValues]);
+
+  console.log("AddStudents", props, mode);
+  // register({ firstName: "test" });
 
   const handleDateChange = (newValue) => {
+    console.log("handleDateChange", mode);
     setDateValue(newValue);
   };
 
   const onSubmit = (data) => {
-    console.log(data)
-    axios.post('/students/add', data)
-    .then(function (response) {
-      console.log('Post response:', response);
-      fetchStudents('param123').then(res => {
-        console.log('Get students response:', res);
-        setStudents(res.data);
-      });
-    })
-    .catch(function (error) {
-      console.log(error);
-    });
+    console.log("onsubmit-->", data, mode);
+    mode === "insert"
+      ? axios
+          .post("/students/add", data)
+          .then(function (response) {
+            console.log("Post response:", response);
+            fetchStudents("param123").then((res) => {
+              console.log("Get students response:", res);
+              setStudents(res.data);
+            });
+          })
+          .catch(function (error) {
+            console.log(error);
+          })
+      : axios
+          .post("/student/edit", data)
+          .then(function (response) {
+            console.log("Post response:", response);
+            fetchStudents("param123").then((res) => {
+              console.log("Get students response:", res);
+              setStudents(res.data);
+            });
+          })
+          .catch(function (error) {
+            console.log(error);
+          });
   };
 
   return (
-    <div id='students-container'>
+    <div id="students-container">
       <form onSubmit={handleSubmit(onSubmit)}>
         <TextField
-            id="outlined-first-name"
-            className='form-text-field'
-            label="First name"
-            type="text"
-            required
-            {...register('firstName')}
-          />
+          id="outlined-first-name"
+          className="form-text-field"
+          label="First name"
+          type="text"
+          required
+          InputLabelProps={{ shrink: true }}
+          {...register("firstName")}
+        />
 
         <TextField
-            id="outlined-last-name"
-            className='form-text-field'
-            label="Last name"
-            type="text"
-            required
-            {...register('lastName')}
-          />
+          id="outlined-last-name"
+          className="form-text-field"
+          label="Last name"
+          type="text"
+          required
+          InputLabelProps={{ shrink: true }}
+          {...register("lastName")}
+        />
 
         <TextField
-            id="outlined-last-uid"
-            className='form-text-field'
-            label="UID-CNP"
-            type="text"
-            required
-            {...register('UID')}
-          />
+          id="outlined-last-uid"
+          className="form-text-field"
+          label="UID-CNP"
+          type="text"
+          required
+          InputLabelProps={{ shrink: true }}
+          {...register("UID")}
+        />
 
         <TextField
-            id="outlined-email-student"
-            className='form-text-field'
-            label="Email"
-            type="email"
-            required
-            {...register('email')}
-          />
+          id="outlined-email-student"
+          className="form-text-field"
+          label="Email"
+          type="email"
+          required
+          InputLabelProps={{ shrink: true }}
+          {...register("email")}
+        />
         <TextField
-            id="outlined-phone-student"
-            className='form-text-field'
-            label="Phone student"
-            type="tel"
-            {...register('phone')}
-          />
+          id="outlined-phone-student"
+          className="form-text-field"
+          label="Phone student"
+          type="tel"
+          InputLabelProps={{ shrink: true }}
+          {...register("phone")}
+        />
 
         <TextField
-            id="outlined-school"
-            className='form-text-field'
-            label="School"
-            type="text"
-            defaultValue="Default school"
-            {...register('school')}
-          />
+          id="outlined-school"
+          className="form-text-field"
+          label="School"
+          type="text"
+          InputLabelProps={{ shrink: true }}
+          // defaultValue="Default school"
+          {...register("school")}
+        />
 
         <TextField
-            id="outlined-class"
-            className='form-text-field'
-            label="Class"
-            type="text"
-            {...register('class')}
-          />
+          id="outlined-class"
+          className="form-text-field"
+          label="Class"
+          type="text"
+          InputLabelProps={{ shrink: true }}
+          {...register("class")}
+        />
 
         <LocalizationProvider dateAdapter={AdapterDateFns}>
-          <div id='dob-desktop'>
+          <div id="dob-desktop">
             <DesktopDatePicker
               label="Date of birth"
               inputFormat="yyyy-MM-dd"
@@ -113,7 +171,7 @@ export default function AddStudents(props) {
             />
           </div>
 
-          <div id='dob-mobile'>
+          <div id="dob-mobile">
             <MobileDatePicker
               label="Date of birth"
               inputFormat="yyyy-MM-dd"
@@ -121,12 +179,14 @@ export default function AddStudents(props) {
               onChange={handleDateChange}
               required
               renderInput={(params) => <TextField {...params} />}
-              {...register('dateOfBirth')}
+              {...register("dateOfBirth")}
             />
           </div>
         </LocalizationProvider>
 
-        <Button className='form-button-submit' variant="outlined" type='submit'>Submit</Button>
+        <Button className="form-button-submit" variant="outlined" type="submit">
+          {mode == "insert" ? <>Submit</> : <>Edit</>}
+        </Button>
       </form>
     </div>
   );

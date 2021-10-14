@@ -6,10 +6,42 @@ import { useEffect, useState, React, useMemo } from "react";
 import AddStudents from "./add-students";
 import { StudentContext } from "./studentContext";
 import DataTableSort from "../../components/data-table-sort";
+import { useForm } from "react-hook-form";
 
 function StudentsView() {
   const [students, setStudents] = useState(null);
-  const value = useMemo(() => ({ students, setStudents }), [students]);
+  const [selected, setSelected] = useState([]);
+  const [mode, setMode] = useState("insert");
+  const [formValues, setFormValues] = useState({
+    firstName: "Bobi",
+    lastName: "Gigi",
+  });
+
+  const {
+    register,
+    handleSubmit,
+    setValue,
+    setFocus,
+    formState: { errors },
+  } = useForm();
+
+  const value = useMemo(
+    () => ({
+      students,
+      setStudents,
+      selected,
+      setSelected,
+      mode,
+      setMode,
+      register,
+      handleSubmit,
+      setValue,
+      setFocus,
+      formValues,
+      setFormValues,
+    }),
+    [students, selected, mode, setValue, setFormValues]
+  );
 
   useEffect(() => {
     fetchStudents("param123").then((res) => {
@@ -76,7 +108,7 @@ function StudentsView() {
     <>
       {students !== null ? (
         <StudentContext.Provider value={value}>
-          <AddStudents />
+          <AddStudents formValues={formValues} />
           <DataTableSort
             context={StudentContext}
             headCells={headCells}
@@ -85,6 +117,8 @@ function StudentsView() {
             deleteCallback={deleteStudent}
             fetchData={fetchStudents}
             setData={setStudents}
+            formValues={formValues}
+            // setFormValues={setFormValues}
           />
         </StudentContext.Provider>
       ) : (
