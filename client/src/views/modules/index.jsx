@@ -1,76 +1,74 @@
-import './index.scss';
-import { fetchModules, deleteModule } from '../../services/http-service';
-import { ModuleContext } from './moduleContext';
-import { useEffect, useState, React, useMemo } from 'react';
-import AddModule from './add-module';
-import DataTableSort from '../../components/data-table-sort';
+import "./index.scss";
+import { fetchModules, deleteModule } from "../../services/http-service";
+import { ModuleContext } from "./moduleContext";
+import { useEffect, useState, React, useMemo } from "react";
+import AddModule from "./add-module";
+import DataTableSort from "../../components/data-table-sort";
 
 export default function Modules() {
   const [modules, setModules] = useState(null);
-  const value = useMemo(() => ({modules, setModules}), [modules]);
+  const value = useMemo(() => ({ modules, setModules }), [modules]);
 
   useEffect(() => {
-    console.log('test from Main');
-    fetchModules('param123').then(res => {
-      console.log('fetchStudents', res);
+    fetchModules("param123").then((res) => {
       setModules(res.data);
     });
-  },[]);
+  }, []);
 
   const headCells = [
     {
-      id: '',
+      id: "",
       numeric: false,
       disablePadding: true,
-      label: '',
+      label: "",
     },
     {
-      id: 'name',
+      id: "name",
       numeric: true,
       disablePadding: false,
-      label: 'Name',
+      label: "Name",
     },
     {
-      id: 'type',
+      id: "type",
       numeric: true,
       disablePadding: false,
-      label: 'Type',
+      label: "Type",
     },
     {
-      id: 'price',
+      id: "price",
       numeric: true,
       disablePadding: false,
-      label: 'Price',
+      label: "Price",
     },
     {
-      id: 'notes',
+      id: "notes",
       numeric: false,
       disablePadding: false,
-      label: 'Notes',
-    }
+      label: "Notes",
+    },
   ];
 
-
-  const arrOrder = headCells.slice(1, headCells.length).map(ele => ele.id);
+  const arrOrder = headCells.slice(1, headCells.length).map((ele) => ele.id);
   // const arrOrder = headCells.slice(1, headCells.length).map(ele => ele.id);
 
-  return(
+  return (
     <>
-    {modules !== null
-    ? (<ModuleContext.Provider value={value}>
+      {modules !== null ? (
+        <ModuleContext.Provider value={value}>
           <AddModule />
           <DataTableSort
             context={ModuleContext}
             headCells={headCells}
             order={arrOrder}
-            name={'Modules'}
+            name={"Modules"}
             deleteCallback={deleteModule}
             fetchData={fetchModules}
             setData={setModules}
           />
         </ModuleContext.Provider>
-      )
-    : (<div></div>)}
+      ) : (
+        <div></div>
+      )}
     </>
   );
 }

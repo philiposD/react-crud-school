@@ -13,7 +13,6 @@ function ParentsView() {
 
   useEffect(() => {
     fetchParents("param123").then((res) => {
-      console.log("fetchParents", res);
       setParents(res.data);
     });
   }, []);

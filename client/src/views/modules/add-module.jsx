@@ -28,21 +28,16 @@ export default function AddModule(props) {
 
   const { setModules } = useContext(ModuleContext);
 
-  console.log("AddStudents", props);
-
   const handleDateChange = (newValue) => {
     setDateValue(newValue);
   };
 
   const onSubmit = (data) => {
-    console.log(data);
     data.price = parseFloat(data.price);
     axios
       .post("/modules/add", data)
       .then(function (response) {
-        console.log("Post response:", response);
         fetchModules("param123").then((res) => {
-          console.log("Get students response:", res);
           setModules(res.data);
         });
       })

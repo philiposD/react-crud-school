@@ -8,9 +8,7 @@ function Dashboard() {
   const [data, setData] = useState({});
 
   useEffect(() => {
-    console.log("test from Main");
     fetchStudents("param123").then((res) => {
-      console.log(res);
       setData(res);
     });
   }, []);

@@ -22,20 +22,15 @@ export default function AddParents(props) {
 
   const { setParents } = useContext(ParentContext);
 
-  console.log("AddParents", props);
-
   const handleDateChange = (newValue) => {
     setDateValue(newValue);
   };
 
   const onSubmit = (data) => {
-    console.log(data);
     axios
       .post("/parents/add", data)
       .then(function (response) {
-        console.log("Post response:", response);
         fetchParents("param123").then((res) => {
-          console.log("Get parents response:", res);
           setParents(res.data);
         });
       })

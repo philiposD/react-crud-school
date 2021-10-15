@@ -13,7 +13,6 @@ function ProfessorsView() {
 
   useEffect(() => {
     fetchProfessors("param123").then((res) => {
-      console.log("fetchProfessors", res);
       setProfessors(res.data);
     });
   }, []);

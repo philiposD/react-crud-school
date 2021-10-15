@@ -34,8 +34,6 @@ export default function DataTableSort(props) {
   const [dense, setDense] = React.useState(false);
   const [rowsPerPage, setRowsPerPage] = React.useState(5);
 
-  console.log(props);
-
   const {
     modules,
     students,
@@ -227,29 +225,8 @@ export default function DataTableSort(props) {
   };
 
   function handleEdit(event) {
-    // debugger;
     setMode("edit");
-    // setFormValues(Object.entries(rows.find((ele) => ele.id === selected[0])));
     setFormValues(rows.find((ele) => ele.id === selected[0]));
-    // Object.entries(rows.find((ele) => ele.id === selected[0])).forEach(
-    //   (ele) => {
-    //     if (ele[0] !== undefined) {
-    //       console.log("----", ele[0]);
-    //       setValue(ele[0], ele[1], { shouldValidate: true });
-    //       // setFocus(ele[0]);
-    //     }
-    //   }
-    // );
-    // setFocus("firstName");
-    // rows
-    //   .find((ele) => ele.id === selected[0])
-    //   .forEach((ele) => {
-    //     console.log(ele);
-    //     //
-    //   });
-    // setData(rows.find((ele) => ele.id === selected[0]));
-
-    console.log(event, mode);
   }
 
   function handleDelete() {
@@ -328,21 +305,15 @@ export default function DataTableSort(props) {
     const isItemSelected = isSelected(row.id);
     const labelId = `enhanced-table-checkbox-${index}`;
 
-    console.log("PROPS data-table-sort", props);
-
     window.row = row;
     let filteredRows = Object.keys(row)
       .filter((ele) => ele !== "createdAt")
       .filter((ele) => ele !== "updatedAt");
-    console.log("order", propsOrder);
     let filteredRowSorted = propsOrder.reduce(
       (ac, a) => ({ ...ac, [a]: row[a] }),
       {}
     );
     let arrFilteredRows = Object.values(filteredRowSorted);
-    console.log("filtered Rows", filteredRows);
-    console.log("filtered Rows", filteredRowSorted);
-
     return (
       <>
         <TableRow

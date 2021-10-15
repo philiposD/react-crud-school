@@ -22,20 +22,15 @@ export default function AddProfessor(props) {
 
   const { setProfessors } = useContext(ProfessorContext);
 
-  console.log("AddProfessors", props);
-
   const handleDateChange = (newValue) => {
     setDateValue(newValue);
   };
 
   const onSubmit = (data) => {
-    console.log(data);
     axios
       .post("/professors/add", data)
       .then(function (response) {
-        console.log("Post response:", response);
         fetchProfessors("param123").then((res) => {
-          console.log("Get professors response:", res);
           setProfessors(res.data);
         });
       })

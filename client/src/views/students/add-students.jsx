@@ -28,65 +28,32 @@ export default function AddStudents(props) {
     setStudents,
     mode,
     formValues,
-    // register,
-    // handleSubmit,
-    // setValue,
-    // formValues,
     // setFormValues,
   } = useContext(StudentContext);
 
-  console.log("add student", props);
-
   useEffect(() => {
-    console.log("props.formValues:", formValues);
-
     Object.entries(props.formValues).forEach((ele) => {
       if (ele[0] !== undefined) {
-        console.log("----", ele[0]);
         setValue(ele[0], ele[1], { shouldValidate: true });
-        // setFocus(ele[0]);
       }
     });
-
-    // setValue("firstName", "value", { shouldValidate: true });
-    // setValue("lastName", "gigi", { shouldValidate: true });
-  }, [props.formValues]);
-
-  console.log("AddStudents", props, mode);
-  // register({ firstName: "test" });
+  }, [props.formValues, setValue]);
 
   const handleDateChange = (newValue) => {
-    console.log("handleDateChange", mode);
     setDateValue(newValue);
   };
 
   const onSubmit = (data) => {
-    console.log("onsubmit-->", data, mode);
-    mode === "insert"
-      ? axios
-          .post("/students/add", data)
-          .then(function (response) {
-            console.log("Post response:", response);
-            fetchStudents("param123").then((res) => {
-              console.log("Get students response:", res);
-              setStudents(res.data);
-            });
-          })
-          .catch(function (error) {
-            console.log(error);
-          })
-      : axios
-          .post("/student/edit", data)
-          .then(function (response) {
-            console.log("Post response:", response);
-            fetchStudents("param123").then((res) => {
-              console.log("Get students response:", res);
-              setStudents(res.data);
-            });
-          })
-          .catch(function (error) {
-            console.log(error);
-          });
+    axios
+      .post(mode === "insert" ? "/students/add" : "/student/edit", data)
+      .then(function (response) {
+        fetchStudents().then((res) => {
+          setStudents(res.data);
+        });
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
   };
 
   return (
