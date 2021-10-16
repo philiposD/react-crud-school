@@ -9,18 +9,4 @@
       margin: 10px 10px;
     }
   }
-
-
-  @media all and (max-width: 1024px) {
-    #dob-desktop {
-      display: none;
-    }
-  }
-
-  @media all and (min-width: 1024px) {
-    #dob-mobile {
-      display: none;
-    }
-  }
 }
-

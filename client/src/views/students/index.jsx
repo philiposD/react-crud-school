@@ -3,14 +3,12 @@ import "./index.scss";
 import "../../services/http-service";
 import { fetchStudents, deleteStudent } from "../../services/http-service";
 import { useEffect, useState, React, useMemo } from "react";
-import AddStudents from "./add-students";
 import { StudentContext } from "./studentContext";
 import DataTableSort from "../../components/data-table-sort";
-import { useForm } from "react-hook-form";
+import FormAdd from "../../components/form-add";
 
 function StudentsView() {
   const [students, setStudents] = useState(null);
-  const [selected, setSelected] = useState([]);
   const [mode, setMode] = useState("insert");
   const [formValues, setFormValues] = useState({
     firstName: "Bobi",
@@ -21,19 +19,17 @@ function StudentsView() {
     () => ({
       students,
       setStudents,
-      selected,
-      setSelected,
       mode,
       setMode,
       formValues,
       setFormValues,
     }),
-    [students, selected, mode, setFormValues, formValues]
+    [students, mode, setFormValues, formValues]
   );
 
   useEffect(() => {
     fetchStudents("param123").then((res) => {
-      console.log("fetchStudents", res);
+      // console.log("fetchStudents", res);
       setStudents(res.data);
     });
   }, []);
@@ -45,67 +41,97 @@ function StudentsView() {
       numeric: false,
       disablePadding: true,
       label: "First name",
+      className: "form-text-field",
+      type: "text",
     },
     {
       id: "lastName",
-      numeric: true,
+      numeric: false,
       disablePadding: false,
       label: "Last name",
+      className: "form-text-field",
+      type: "text",
     },
     {
       id: "dateOfBirth",
-      numeric: true,
+      numeric: false,
       disablePadding: false,
       label: "Date of birth",
+      className: "form-text-field",
+      type: "date",
     },
     {
       id: "UID",
-      numeric: true,
+      numeric: false,
       disablePadding: false,
       label: "UID - CNP",
+      className: "form-text-field",
+      type: "text",
     },
     {
       id: "email",
-      numeric: true,
+      numeric: false,
       disablePadding: false,
       label: "Email",
+      className: "form-text-field",
+      type: "email",
     },
     {
       id: "phone",
-      numeric: true,
+      numeric: false,
       disablePadding: false,
       label: "Phone",
+      className: "form-text-field",
+      type: "tel",
     },
     {
       id: "school",
-      numeric: true,
+      numeric: false,
       disablePadding: false,
       label: "School",
+      className: "form-text-field",
+      type: "text",
     },
     {
       id: "class",
-      numeric: true,
+      numeric: false,
       disablePadding: false,
       label: "Class",
+      className: "form-text-field",
+      type: "text",
     },
   ];
 
   const arrOrder = headCells.slice(1, headCells.length).map((ele) => ele.id);
+  const fields = headCells.slice(1, headCells.length);
+  let path = mode === "insert" ? "/students/add" : "/student/edit";
+  // const fields = headCells.slice(1, headCells.length).concat({
+  //   id: "dateOfBirth",
+  //   numeric: false,
+  //   disablePadding: false,
+  //   label: "Date of birth",
+  // });
 
   return (
     <>
       {students !== null ? (
         <StudentContext.Provider value={value}>
-          <AddStudents />
+          <FormAdd
+            context={StudentContext}
+            fields={fields}
+            fetchData={fetchStudents}
+            setData={setStudents}
+            path={path}
+          />
           <DataTableSort
+            name={"Students"}
             context={StudentContext}
             headCells={headCells}
             order={arrOrder}
-            name={"Students"}
             deleteCallback={deleteStudent}
             fetchData={fetchStudents}
             setData={setStudents}
-            formValues={formValues}
+            rows={students}
           />
         </StudentContext.Provider>
       ) : (

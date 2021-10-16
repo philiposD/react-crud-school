@@ -51,37 +51,37 @@ models.sequelize.sync({ logging: console.log, force: forceDB }).then(result => {
 
 
   //ADD
-  app.post("/students/add", (req, res) => {
+  app.post("/student/add", (req, res) => {
     console.log('/students/add req.body: ', req.body);
     models.students.build(req.body).save();
     res.send('Student inserted');
   });
 
-  app.post("/parents/add", (req, res) => {
+  app.post("/parent/add", (req, res) => {
     console.log('/parents/add req.body: ', req.body);
     models.parents.build(req.body).save();
     res.send('Student inserted');
   });
 
-  app.post("/professors/add", (req, res) => {
-    console.log('/professors/add req.body: ', req.body);
+  app.post("/professor/add", (req, res) => {
+    console.log('/professor/add req.body: ', req.body);
     models.professors.build(req.body).save();
     res.send('Student inserted');
   });
 
-  app.post("/modules/add", (req, res) => {
-    console.log('/modules/add req.body: ', req.body);
+  app.post("/module/add", (req, res) => {
+    console.log('/module/add req.body: ', req.body);
     models.modules.build(req.body).save();
     res.send('Module inserted');
   });
 
-  app.post("/courses/add", (req, res) => {
+  app.post("/course/add", (req, res) => {
     console.log('/courses/add req.body: ', req.body);
     models.courses.build(req.body).save();
     res.send('Course inserted');
   });
 
-  app.post("/course-modules/add", (req, res) => {
+  app.post("/course-module/add", (req, res) => {
     console.log('/course-modules/add req.body: ', req.body);
     models.courseModules.build(req.body).save();
     res.send('courses-modules inserted');

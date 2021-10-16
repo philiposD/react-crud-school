@@ -1,0 +1,27 @@
+#form-add {
+  form {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: baseline;
+  }
+
+  #dob-fields {
+    display: flex;
+    margin-left: 10px;
+    #dob-desktop,
+    #dob-mobile {
+      display: flex;
+    }
+  }
+
+  .form-text-field {
+    margin-bottom: 20px;
+    margin-left: 10px;
+  }
+
+  button {
+    height: 55px;
+    margin-left: 10px;
+  }
+}

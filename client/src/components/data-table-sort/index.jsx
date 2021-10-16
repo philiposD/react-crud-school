@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import PropTypes from "prop-types";
 import { alpha } from "@mui/material/styles";
 import Box from "@mui/material/Box";
@@ -27,28 +27,24 @@ import KeyboardArrowUpIcon from "@mui/icons-material/KeyboardArrowUp";
 import Collapse from "@mui/material/Collapse";
 
 export default function DataTableSort(props) {
-  const [order, setOrder] = React.useState("asc");
-  const [orderBy, setOrderBy] = React.useState("calories");
-  const [page, setPage] = React.useState(0);
-  const [dense, setDense] = React.useState(false);
-  const [rowsPerPage, setRowsPerPage] = React.useState(5);
+  const [order, setOrder] = useState("asc");
+  const [orderBy, setOrderBy] = useState("calories");
+  const [page, setPage] = useState(0);
+  const [dense, setDense] = useState(false);
+  const [rowsPerPage, setRowsPerPage] = useState(5);
+  const [selected, setSelected] = useState([]);
 
-  const {
-    modules,
-    students,
-    parents,
-    professors,
-    selected,
-    setSelected,
-    setMode,
-    setFormValues,
-  } = useContext(props.context);
+  const { setMode, setFormValues } = useContext(props.context);
 
-  const rows = modules || students || parents || professors;
+  // const rows = modules || students || parents || professors;
+
+  const rows = props.rows;
 
   const { headCells, name, deleteCallback, fetchData, setData } = props;
 
   const propsOrder = props.order;
+
+  // debugger;
 
   function descendingComparator(a, b, orderBy) {
     if (b[orderBy] < a[orderBy]) {
@@ -242,7 +238,6 @@ export default function DataTableSort(props) {
 
   const handleClick = (event, name) => {
     const selectedIndex = selected.indexOf(name);
-    // debugger;
     let newSelected = [];
 
     if (selectedIndex === -1) {
@@ -258,11 +253,12 @@ export default function DataTableSort(props) {
       );
     }
 
-    if (!event.target.checked) {
+    setSelected(newSelected);
+
+    console.log(selected.length);
+    if (!event.target.checked || selected.length > 0) {
       setMode("insert");
     }
-
-    setSelected(newSelected);
   };
 
   const handleChangePage = (event, newPage) => {
@@ -286,7 +282,7 @@ export default function DataTableSort(props) {
 
   function Row(props) {
     const { row, index } = props;
-    const [open, setOpen] = React.useState(false);
+    const [open, setOpen] = useState(false);
 
     const isItemSelected = isSelected(row.id);
     const labelId = `enhanced-table-checkbox-${index}`;

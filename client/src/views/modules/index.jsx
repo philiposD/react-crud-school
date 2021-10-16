@@ -2,12 +2,20 @@ import "./index.scss";
 import { fetchModules, deleteModule } from "../../services/http-service";
 import { ModuleContext } from "./moduleContext";
 import { useEffect, useState, React, useMemo } from "react";
-import AddModule from "./add-module";
 import DataTableSort from "../../components/data-table-sort";
+import FormAdd from "../../components/form-add";
 
 export default function Modules() {
   const [modules, setModules] = useState(null);
-  const value = useMemo(() => ({ modules, setModules }), [modules]);
+  const [mode, setMode] = useState("insert");
+  const [formValues, setFormValues] = useState({
+    firstName: "Bobi",
+    lastName: "Gigi",
+  });
+  const value = useMemo(
+    () => ({ setModules, mode, setMode, formValues, setFormValues }),
+    [modules, setFormValues, formValues]
+  );
 
   useEffect(() => {
     fetchModules("param123").then((res) => {
@@ -27,35 +35,50 @@ export default function Modules() {
       numeric: true,
       disablePadding: false,
       label: "Name",
+      className: "form-text-field",
+      type: "text",
     },
     {
       id: "type",
       numeric: true,
       disablePadding: false,
       label: "Type",
+      className: "form-text-field",
+      type: "text",
     },
     {
       id: "price",
       numeric: true,
       disablePadding: false,
       label: "Price",
+      className: "form-text-field",
+      type: "numeric",
     },
     {
       id: "notes",
       numeric: false,
       disablePadding: false,
       label: "Notes",
+      className: "form-text-field",
+      type: "textarea",
     },
   ];
 
   const arrOrder = headCells.slice(1, headCells.length).map((ele) => ele.id);
-  // const arrOrder = headCells.slice(1, headCells.length).map(ele => ele.id);
+  const fields = headCells.slice(1, headCells.length);
+  let path = mode === "insert" ? "/module/add" : "/module/edit";
 
   return (
     <>
       {modules !== null ? (
         <ModuleContext.Provider value={value}>
-          <AddModule />
+          <FormAdd
+            context={ModuleContext}
+            fields={fields}
+            fetchData={fetchModules}
+            setData={setModules}
+            path={path}
+          />
           <DataTableSort
             context={ModuleContext}
             headCells={headCells}
@@ -64,6 +87,7 @@ export default function Modules() {
             deleteCallback={deleteModule}
             fetchData={fetchModules}
             setData={setModules}
+            rows={modules}
           />
         </ModuleContext.Provider>
       ) : (
