@@ -133,6 +133,45 @@ models.sequelize.sync({ logging: console.log, force: forceDB }).then(result => {
     res.send("Edit student");
   });
 
+
+  app.post("/professor/edit", (req, res) => {
+    console.log("/professor/edit body:", req.body);
+    models.professors.update({
+      'firstName': req.body.firstName,
+      'lastName': req.body.lastName,
+      'UID': req.body.UID,
+      'email': req.body.email,
+      'phone': req.body.phone,
+      'school': req.body.school,
+      'dateOfBirth': req.body.dateOfBirth,
+    }, { where: { id: req.body.id } });
+    res.send("Edit student");
+  });
+
+  app.post("/parent/edit", (req, res) => {
+    console.log("/parent/edit body:", req.body);
+    models.parents.update({
+      'firstName': req.body.firstName,
+      'lastName': req.body.lastName,
+      'UID': req.body.UID,
+      'email': req.body.email,
+      'phone': req.body.phone,
+      'dateOfBirth': req.body.dateOfBirth,
+    }, { where: { id: req.body.id } });
+    res.send("Edit student");
+  });
+
+  app.post("/module/edit", (req, res) => {
+    console.log("/module/edit body:", req.body);
+    models.modules.update({
+      'name': req.body.name,
+      'type': req.body.type,
+      'price': req.body.price,
+      'notes': req.body.notes,
+    }, { where: { id: req.body.id } });
+    res.send("Edit student");
+  });
+
   app.use('/', router);
 
 }).catch(err => {
