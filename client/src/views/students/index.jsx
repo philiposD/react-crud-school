@@ -17,14 +17,6 @@ function StudentsView() {
     lastName: "Gigi",
   });
 
-  const {
-    register,
-    handleSubmit,
-    setValue,
-    setFocus,
-    formState: { errors },
-  } = useForm();
-
   const value = useMemo(
     () => ({
       students,
@@ -33,14 +25,10 @@ function StudentsView() {
       setSelected,
       mode,
       setMode,
-      register,
-      handleSubmit,
-      setValue,
-      setFocus,
       formValues,
       setFormValues,
     }),
-    [students, selected, mode, setValue, setFormValues]
+    [students, selected, mode, setFormValues, formValues]
   );
 
   useEffect(() => {
@@ -108,7 +96,7 @@ function StudentsView() {
     <>
       {students !== null ? (
         <StudentContext.Provider value={value}>
-          <AddStudents formValues={formValues} />
+          <AddStudents />
           <DataTableSort
             context={StudentContext}
             headCells={headCells}
@@ -118,7 +106,6 @@ function StudentsView() {
             fetchData={fetchStudents}
             setData={setStudents}
             formValues={formValues}
-            // setFormValues={setFormValues}
           />
         </StudentContext.Provider>
       ) : (

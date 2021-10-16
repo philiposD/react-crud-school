@@ -29,7 +29,6 @@ import Collapse from "@mui/material/Collapse";
 export default function DataTableSort(props) {
   const [order, setOrder] = React.useState("asc");
   const [orderBy, setOrderBy] = React.useState("calories");
-  // const [selected, setSelected] = React.useState([]);
   const [page, setPage] = React.useState(0);
   const [dense, setDense] = React.useState(false);
   const [rowsPerPage, setRowsPerPage] = React.useState(5);
@@ -41,28 +40,15 @@ export default function DataTableSort(props) {
     professors,
     selected,
     setSelected,
-    mode,
     setMode,
-    setValue,
-    setFocus,
     setFormValues,
   } = useContext(props.context);
+
   const rows = modules || students || parents || professors;
 
   const { headCells, name, deleteCallback, fetchData, setData } = props;
+
   const propsOrder = props.order;
-
-  // debugger;
-
-  function createData(name, calories, fat, carbs, protein) {
-    return {
-      name,
-      calories,
-      fat,
-      carbs,
-      protein,
-    };
-  }
 
   function descendingComparator(a, b, orderBy) {
     if (b[orderBy] < a[orderBy]) {

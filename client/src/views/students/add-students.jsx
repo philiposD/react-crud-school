@@ -24,20 +24,17 @@ export default function AddStudents(props) {
 
   const formValuesAdd = props.formValues;
 
-  const {
-    setStudents,
-    mode,
-    formValues,
-    // setFormValues,
-  } = useContext(StudentContext);
+  const { setStudents, mode, formValues } = useContext(StudentContext);
+
+  console.log("Add students");
 
   useEffect(() => {
-    Object.entries(props.formValues).forEach((ele) => {
+    Object.entries(formValues).forEach((ele) => {
       if (ele[0] !== undefined) {
-        setValue(ele[0], ele[1], { shouldValidate: true });
+        setValue(ele[0], ele[1], { shouldDirty: false });
       }
     });
-  }, [props.formValues, setValue]);
+  }, [formValues, setValue]);
 
   const handleDateChange = (newValue) => {
     setDateValue(newValue);
