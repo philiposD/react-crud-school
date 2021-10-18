@@ -6,7 +6,7 @@ import Modules from './views/modules';
 import ParentsView from './views/parents';
 import ProfessorsView from './views/professors';
 import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
-
+import { createContext, useMemo } from "react";
 import * as React from 'react';
 import { styled, useTheme } from '@mui/material/styles';
 import Box from '@mui/material/Box';
@@ -32,6 +32,7 @@ import RecordVoiceOverIcon from '@mui/icons-material/RecordVoiceOver';
 import GroupIcon from '@mui/icons-material/Group';
 import ViewModuleIcon from '@mui/icons-material/ViewModule';
 import AccessibilityNewIcon from '@mui/icons-material/AccessibilityNew';
+import { AppContext } from './AppContext';
 
 const drawerWidth = 240;
 
@@ -47,7 +48,7 @@ const menuItems = [
     name: 'Students',
     link: '/students',
     icon: <PersonIcon />,
-    main: () => buildWrapper(<Students />)
+    main: (props) => <Students setTitle={props} />
   },
   {
     name: 'Parents',
@@ -145,6 +146,12 @@ const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 'open' 
 function App() {
   const theme = useTheme();
   const [open, setOpen] = React.useState(false);
+  const [title, setTitle] = React.useState('CRUD');
+
+  const value = useMemo(
+    () => ({ title, setTitle }),
+    [title]
+  );
 
   const handleDrawerOpen = () => {
     setOpen(true);
@@ -155,79 +162,79 @@ function App() {
   };
 
   return (
-    <Box sx={{ display: 'flex' }}>
-      <Router>
-        <CssBaseline />
-        <AppBar position="fixed" open={open}>
-          <Toolbar>
-            <IconButton
-              color="inherit"
-              aria-label="open drawer"
-              onClick={handleDrawerOpen}
-              edge="start"
-              sx={{
-                marginRight: '36px',
-                ...(open && { display: 'none' }),
-              }}
-            >
-              <MenuIcon />
-            </IconButton>
-            <Typography variant="h6" noWrap component="div">
-              Mini variant drawer
-            </Typography>
-          </Toolbar>
-        </AppBar>
-        <Drawer variant="permanent" open={open}>
-          <DrawerHeader>
-            <IconButton onClick={handleDrawerClose}>
-              {theme.direction === 'rtl' ? <ChevronRightIcon /> : <ChevronLeftIcon />}
-            </IconButton>
-          </DrawerHeader>
-          <Divider />
-          <List>
-            {/* {['Inbox', 'Starred', 'Send email', 'Drafts'].map((text, index) => ( */}
-            {menuItems.map((item, index) => (
-              <ListItem button key={item.name}>
-                <Link to={item.link}>
-                  <ListItemIcon>
-                    {/* {index % 2 === 0 ? <InboxIcon /> : <MailIcon />} */}
-                    {item.icon}
-                  </ListItemIcon>
-                  {/* <ListItemText primary={item.name} /> */}
-                  {item.name}
+    <AppContext.Provider value={value}>
+      <Box sx={{ display: 'flex' }}>
+        <Router>
+          <CssBaseline />
+          <AppBar position="fixed" open={open}>
+            <Toolbar>
+              <IconButton
+                color="inherit"
+                aria-label="open drawer"
+                onClick={handleDrawerOpen}
+                edge="start"
+                sx={{
+                  marginRight: '36px',
+                  ...(open && { display: 'none' }),
+                }}
+              >
+                <MenuIcon />
+              </IconButton>
+              <Typography variant="h6" noWrap component="div">
+                {title}
+              </Typography>
+            </Toolbar>
+          </AppBar>
+          <Drawer variant="permanent" open={open}>
+            <DrawerHeader>
+              <IconButton onClick={handleDrawerClose}>
+                {theme.direction === 'rtl' ? <ChevronRightIcon /> : <ChevronLeftIcon />}
+              </IconButton>
+            </DrawerHeader>
+            <Divider />
+            <List>
+              {menuItems.map((item, index) => (
+                <Link to={item.link} key={item.name}>
+                  <ListItem button>
+                    <ListItemIcon>
+                      {item.icon}
+                    </ListItemIcon>
+                    {item.name}
+                  </ListItem>
                 </Link>
-              </ListItem>
-            ))}
-          </List>
-          <Divider />
-          <List>
-            {['All mail', 'Trash', 'Spam'].map((text, index) => (
-              <ListItem button key={text}>
-                <ListItemIcon>
-                  {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
-                </ListItemIcon>
-                <ListItemText primary={text} />
-              </ListItem>
-            ))}
-          </List>
-        </Drawer>
 
-        <Box component="main" sx={{ flexGrow: 1, p: 3 }}>
-          <DrawerHeader />
+              ))}
+            </List>
+            <Divider />
+            <List>
+              {['All mail', 'Trash', 'Spam'].map((text, index) => (
+                <ListItem button key={text}>
+                  <ListItemIcon>
+                    {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
+                  </ListItemIcon>
+                  <ListItemText primary={text} />
+                </ListItem>
+              ))}
+            </List>
+          </Drawer>
 
-          <Switch>
-            {menuItems.map((route, index) => (
-              <Route
-                key={index}
-                path={route.link}
-                exact={route.exact}
-                children={<route.main />}
-              />
-            ))}
-          </Switch>
-        </Box>
-      </Router>
-    </Box>
+          <Box component="main" sx={{ flexGrow: 1, p: 3 }}>
+            <DrawerHeader />
+
+            <Switch>
+              {menuItems.map((route, index) => (
+                <Route
+                  key={index}
+                  path={route.link}
+                  exact={route.exact}
+                  children={<route.main setTitle={setTitle} />}
+                />
+              ))}
+            </Switch>
+          </Box>
+        </Router>
+      </Box>
+    </AppContext.Provider>
   );
 
 }

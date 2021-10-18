@@ -1,9 +1,10 @@
 import "./index.scss";
 import { fetchModules, deleteModule } from "../../services/http-service";
 import { ModuleContext } from "./moduleContext";
-import { useEffect, useState, React, useMemo } from "react";
+import { useEffect, useState, React, useMemo, useContext } from "react";
 import DataTableSort from "../../components/data-table-sort";
 import FormAdd from "../../components/form-add";
+import { AppContext } from "../../AppContext";
 
 export default function Modules() {
   const [modules, setModules] = useState(null);
@@ -16,8 +17,10 @@ export default function Modules() {
     () => ({ setModules, mode, setMode, formValues, setFormValues }),
     [modules, setFormValues, formValues]
   );
+  const { setTitle } = useContext(AppContext);
 
   useEffect(() => {
+    setTitle("Modules");
     fetchModules("param123").then((res) => {
       setModules(res.data);
     });

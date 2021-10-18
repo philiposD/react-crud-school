@@ -35,7 +35,7 @@ export default function FormAdd(props) {
   };
 
   console.log(props.fields, mode);
-  window.props = props;
+  // window.props = props;
 
   const onSubmit = (data) => {
     axios

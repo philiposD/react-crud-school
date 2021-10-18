@@ -6,10 +6,14 @@ import {
   deleteParent,
   fetchProfessors,
 } from "../../services/http-service";
-import { useEffect, useState, React, useMemo } from "react";
+import { useEffect, useState, React, useMemo, useContext } from "react";
 import { ParentContext } from "./parentContext";
 import DataTableSort from "../../components/data-table-sort";
 import FormAdd from "../../components/form-add";
+import CheckboxAssoc from "../../components/checkbox-associations";
+import { AppContext } from "../../AppContext";
+import BasicTabs from "../../components/basic-tabs";
+import Typography from "@mui/material/Typography";
 
 function ParentsView() {
   const [parents, setParents] = useState(null);
@@ -24,7 +28,11 @@ function ParentsView() {
     [mode, setFormValues, formValues]
   );
 
+  const { setTitle } = useContext(AppContext);
+
   useEffect(() => {
+    setTitle("Parents");
+
     fetchParents("param123").then((res) => {
       setParents(res.data);
     });
@@ -42,7 +50,7 @@ function ParentsView() {
     },
     {
       id: "lastName",
-      numeric: true,
+      numeric: false,
       disablePadding: false,
       label: "Last name",
       className: "form-text-field",
@@ -50,7 +58,7 @@ function ParentsView() {
     },
     {
       id: "dateOfBirth",
-      numeric: true,
+      numeric: false,
       disablePadding: false,
       label: "Date of birth",
       className: "form-text-field",
@@ -58,7 +66,7 @@ function ParentsView() {
     },
     {
       id: "UID",
-      numeric: true,
+      numeric: false,
       disablePadding: false,
       label: "UID - CNP",
       className: "form-text-field",
@@ -66,7 +74,7 @@ function ParentsView() {
     },
     {
       id: "email",
-      numeric: true,
+      numeric: false,
       disablePadding: false,
       label: "Email",
       className: "form-text-field",
@@ -74,7 +82,7 @@ function ParentsView() {
     },
     {
       id: "phone",
-      numeric: true,
+      numeric: false,
       disablePadding: false,
       label: "Phone",
       className: "form-text-field",
@@ -90,23 +98,55 @@ function ParentsView() {
     <>
       {parents !== null ? (
         <ParentContext.Provider value={value}>
-          <FormAdd
-            context={ParentContext}
-            fields={fields}
-            fetchData={fetchParents}
-            setData={setParents}
-            path={path}
+          <BasicTabs
+            tabAdd={[
+              <FormAdd
+                context={ParentContext}
+                fields={fields}
+                fetchData={fetchParents}
+                setData={setParents}
+                path={path}
+              />,
+              <DataTableSort
+                name={"Parents"}
+                context={ParentContext}
+                headCells={headCells}
+                order={arrOrder}
+                deleteCallback={deleteParent}
+                fetchData={fetchParents}
+                setData={setParents}
+                rows={parents}
+              />,
+            ]}
+            tabAssoc={[
+              <Typography variant="body1" gutterBottom>
+                Associations are done parent => child, 1 parent can have
+                multiple children, but 1 child cannot have more than 2 parents.
+              </Typography>,
+              <CheckboxAssoc
+                label={"Pick a parent"}
+                placeholder={"Parents"}
+                data={parents}
+              />,
+              <CheckboxAssoc
+                label={"Pick a student"}
+                placeholder={"Students"}
+                data={window.Office.Models.students}
+              />,
+              <DataTableSort
+                name={"Parents"}
+                context={ParentContext}
+                headCells={headCells}
+                order={arrOrder}
+                deleteCallback={deleteParent}
+                fetchData={fetchParents}
+                setData={setParents}
+                rows={parents}
+              />,
+            ]}
           />
-          <DataTableSort
-            name={"Parents"}
-            context={ParentContext}
-            headCells={headCells}
-            order={arrOrder}
-            deleteCallback={deleteParent}
-            fetchData={fetchParents}
-            setData={setParents}
-            rows={parents}
-          />
+
+          {/* <CheckboxAssoc /> */}
         </ParentContext.Provider>
       ) : (
         <div></div>

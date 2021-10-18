@@ -2,18 +2,21 @@
 import "./index.scss";
 import "../../services/http-service";
 import { fetchStudents, deleteStudent } from "../../services/http-service";
-import { useEffect, useState, React, useMemo } from "react";
+import { useEffect, useState, React, useMemo, useContext } from "react";
 import { StudentContext } from "./studentContext";
 import DataTableSort from "../../components/data-table-sort";
 import FormAdd from "../../components/form-add";
-
-function StudentsView() {
+import { AppContext } from "../../AppContext";
+function StudentsView(props) {
   const [students, setStudents] = useState(null);
   const [mode, setMode] = useState("insert");
   const [formValues, setFormValues] = useState({
     firstName: "Bobi",
     lastName: "Gigi",
   });
+
+  console.log("students props:", props);
+  window.props = props;
 
   const value = useMemo(
     () => ({
@@ -26,8 +29,10 @@ function StudentsView() {
     }),
     [students, mode, setFormValues, formValues]
   );
+  const { setTitle } = useContext(AppContext);
 
   useEffect(() => {
+    setTitle("Students");
     fetchStudents("param123").then((res) => {
       // console.log("fetchStudents", res);
       setStudents(res.data);

@@ -331,7 +331,7 @@ export default function DataTableSort(props) {
 
           {arrFilteredRows.map((item, index) => {
             return (
-              <TableCell align="right" key={index}>
+              <TableCell align="left" key={index}>
                 {item}
               </TableCell>
             );

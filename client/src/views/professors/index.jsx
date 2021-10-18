@@ -2,10 +2,11 @@
 import "./index.scss";
 import "../../services/http-service";
 import { fetchProfessors, deleteProfessor } from "../../services/http-service";
-import { useEffect, useState, React, useMemo } from "react";
+import { useEffect, useState, React, useMemo, useContext } from "react";
 import { ProfessorContext } from "./professorContext";
 import DataTableSort from "../../components/data-table-sort";
 import FormAdd from "../../components/form-add";
+import { AppContext } from "../../AppContext";
 
 function ProfessorsView() {
   const [professors, setProfessors] = useState(null);
@@ -26,7 +27,10 @@ function ProfessorsView() {
     [mode, setFormValues, formValues]
   );
 
+  const { setTitle } = useContext(AppContext);
+
   useEffect(() => {
+    setTitle("Professors");
     fetchProfessors("param123").then((res) => {
       setProfessors(res.data);
     });
