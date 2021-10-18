@@ -18,7 +18,7 @@ function TabPanel(props) {
     >
       {value === index && (
         <Box sx={{ p: 3 }}>
-          <Typography>{children}</Typography>
+          <Typography component="span">{children}</Typography>
         </Box>
       )}
     </div>
@@ -58,7 +58,7 @@ export default function BasicTabs(props) {
           <Tab label="Reports" {...a11yProps(2)} />
         </Tabs>
       </Box>
-      <TabPanel value={value} index={0}>
+      <TabPanel value={value} index={0} component="span">
         {props.tabAdd}
       </TabPanel>
       <TabPanel value={value} index={1}>

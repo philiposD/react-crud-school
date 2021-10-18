@@ -101,6 +101,7 @@ function ParentsView() {
           <BasicTabs
             tabAdd={[
               <FormAdd
+                key="parentsTabAddFormAdd"
                 context={ParentContext}
                 fields={fields}
                 fetchData={fetchParents}
@@ -108,6 +109,7 @@ function ParentsView() {
                 path={path}
               />,
               <DataTableSort
+                key="parentsTabAddDataTableSort"
                 name={"Parents"}
                 context={ParentContext}
                 headCells={headCells}
@@ -119,7 +121,11 @@ function ParentsView() {
               />,
             ]}
             tabAssoc={[
-              <Typography variant="body1" gutterBottom>
+              <Typography
+                variant="body1"
+                gutterBottom
+                key="parentsTabAssocHead1"
+              >
                 Associations are done parent => child, 1 parent can have
                 multiple children, but 1 child cannot have more than 2 parents.
               </Typography>,
@@ -127,11 +133,13 @@ function ParentsView() {
                 label={"Pick a parent"}
                 placeholder={"Parents"}
                 data={parents}
+                key="parentsTabAssocCheck1"
               />,
               <CheckboxAssoc
                 label={"Pick a student"}
                 placeholder={"Students"}
                 data={window.Office.Models.students}
+                key="parentsTabAssocCheck2"
               />,
               <DataTableSort
                 name={"Parents"}
@@ -142,6 +150,7 @@ function ParentsView() {
                 fetchData={fetchParents}
                 setData={setParents}
                 rows={parents}
+                key="parentsTabAssocDataTable"
               />,
             ]}
           />
