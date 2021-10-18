@@ -16,11 +16,16 @@ export default function FormAdd(props) {
     formState: { errors },
   } = useForm();
 
-  const { mode, formValues } = useContext(props.context);
+  const { mode } = useContext(props.context);
 
   const [dateValue, setDateValue] = React.useState(
     new Date("2000-08-18T21:11:54")
   );
+
+  const [formValues, setFormValues] = useState({
+    firstName: "Bobi",
+    lastName: "Gigi",
+  });
 
   useEffect(() => {
     Object.entries(formValues).forEach((ele) => {

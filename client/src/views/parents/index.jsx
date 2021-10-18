@@ -23,9 +23,22 @@ function ParentsView() {
     lastName: "Gigi",
   });
 
+  const [listCheckbox1, setListCheckbox1] = useState([]);
+  const [listCheckbox2, setListCheckbox2] = useState([]);
+
   const value = useMemo(
-    () => ({ setParents, mode, setMode, formValues, setFormValues }),
-    [mode, setFormValues, formValues]
+    () => ({
+      setParents,
+      mode,
+      setMode,
+      formValues,
+      setFormValues,
+      listCheckbox1,
+      listCheckbox2,
+      setListCheckbox1,
+      setListCheckbox2,
+    }),
+    [mode, setFormValues, formValues, listCheckbox1, listCheckbox2]
   );
 
   const { setTitle } = useContext(AppContext);
@@ -94,6 +107,9 @@ function ParentsView() {
   const fields = headCells.slice(1, headCells.length);
   let path = mode === "insert" ? "/parent/add" : "/parent/edit";
 
+  var studentsData = JSON.parse(localStorage.getItem("students"));
+  var parentsData = JSON.parse(localStorage.getItem("parents"));
+
   return (
     <>
       {parents !== null ? (
@@ -132,14 +148,18 @@ function ParentsView() {
               <CheckboxAssoc
                 label={"Pick a parent"}
                 placeholder={"Parents"}
-                data={parents}
+                data={parentsData}
+                // data={JSON.parse(localStorage.getItem("parents"))}
                 key="parentsTabAssocCheck1"
+                context={ParentContext}
               />,
               <CheckboxAssoc
                 label={"Pick a student"}
                 placeholder={"Students"}
-                data={window.Office.Models.students}
+                data={studentsData}
+                // data={JSON.parse(localStorage.getItem("students"))}
                 key="parentsTabAssocCheck2"
+                context={ParentContext}
               />,
               <DataTableSort
                 name={"Parents"}

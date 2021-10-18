@@ -1,4 +1,5 @@
-import * as React from "react";
+// import * as React from "react";
+import { useContext, React } from "react";
 import Checkbox from "@mui/material/Checkbox";
 import TextField from "@mui/material/TextField";
 import Autocomplete from "@mui/material/Autocomplete";
@@ -9,6 +10,8 @@ const icon = <CheckBoxOutlineBlankIcon fontSize="small" />;
 const checkedIcon = <CheckBoxIcon fontSize="small" />;
 
 export default function CheckboxAssoc(props) {
+  const { setListCheckbox1, listCheckbox1 } = useContext(props.context);
+
   return (
     <Autocomplete
       multiple
@@ -20,7 +23,12 @@ export default function CheckboxAssoc(props) {
           ? `${option.firstName} ${option.lastName}`
           : option.name
       }
-      onChange={(event, value) => console.log(value)}
+      isOptionEqualToValue={(option, value) => option.id === value.id}
+      onChange={(event, value) => {
+        setListCheckbox1(value);
+        console.log(listCheckbox1);
+        console.log(value);
+      }}
       renderOption={(props, option, { selected }) => (
         <li {...props}>
           <Checkbox

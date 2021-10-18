@@ -24,10 +24,8 @@ function StudentsView(props) {
       setStudents,
       mode,
       setMode,
-      formValues,
-      setFormValues,
     }),
-    [students, mode, setFormValues, formValues]
+    [students, mode]
   );
   const { setTitle } = useContext(AppContext);
 
@@ -37,7 +35,7 @@ function StudentsView(props) {
       // console.log("fetchStudents", res);
       setStudents(res.data);
     });
-  }, []);
+  }, [setStudents, setTitle]);
 
   let headCells = [
     {},
@@ -109,7 +107,7 @@ function StudentsView(props) {
 
   const arrOrder = headCells.slice(1, headCells.length).map((ele) => ele.id);
   const fields = headCells.slice(1, headCells.length);
-  let path = mode === "insert" ? "/students/add" : "/student/edit";
+  let path = mode === "insert" ? "/student/add" : "/student/edit";
   // const fields = headCells.slice(1, headCells.length).concat({
   //   id: "dateOfBirth",
   //   numeric: false,

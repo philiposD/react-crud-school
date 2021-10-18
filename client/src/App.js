@@ -48,7 +48,7 @@ const menuItems = [
     name: 'Students',
     link: '/students',
     icon: <PersonIcon />,
-    main: (props) => <Students setTitle={props} />
+    main: (props) => <Students />
   },
   {
     name: 'Parents',
@@ -227,7 +227,7 @@ function App() {
                   key={index}
                   path={route.link}
                   exact={route.exact}
-                  children={<route.main setTitle={setTitle} />}
+                  children={<route.main />}
                 />
               ))}
             </Switch>

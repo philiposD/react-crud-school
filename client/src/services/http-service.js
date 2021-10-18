@@ -6,6 +6,7 @@ export const fetchStudents = (param) => {
     axios.get('/students/all').then(res => {
       resolve(res.data);
       window.Office.Models.students = res.data.data;
+      localStorage.setItem('students', JSON.stringify(res.data.data));
     });
   });
 }
@@ -16,6 +17,7 @@ export const fetchModules = (param) => {
     axios.get('/modules/all').then(res => {
       resolve(res.data);
       window.Office.Models.modules = res.data.data;
+      localStorage.setItem('modules', JSON.stringify(res.data.data));
     });
   });
 }
@@ -26,6 +28,7 @@ export const fetchParents = (param) => {
     axios.get('/parents/all').then(res => {
       resolve(res.data);
       window.Office.Models.parents = res.data.data;
+      localStorage.setItem('parents', JSON.stringify(res.data.data));
     });
   });
 }
@@ -36,6 +39,7 @@ export const fetchProfessors = (param) => {
     axios.get('/professors/all').then(res => {
       resolve(res.data);
       window.Office.Models.professors = res.data.data;
+      localStorage.setItem('professors', JSON.stringify(res.data.data));
     });
   });
 }

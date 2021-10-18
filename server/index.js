@@ -52,7 +52,7 @@ models.sequelize.sync({ logging: console.log, force: forceDB }).then(result => {
 
   //ADD
   app.post("/student/add", (req, res) => {
-    console.log('/students/add req.body: ', req.body);
+    console.log('/student/add req.body: ', req.body);
     models.students.build(req.body).save();
     res.send('Student inserted');
   });
