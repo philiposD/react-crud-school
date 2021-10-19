@@ -88,6 +88,13 @@ models.sequelize.sync({ logging: console.log, force: forceDB }).then(result => {
   });
 
 
+  app.post("/parent-student/add", (req, res) => {
+    console.log('/parent/add req.body: ', req.body);
+    models.parentStudents.build(req.body).save();
+    res.send('courses-modules inserted');
+  });
+
+
 
 
 

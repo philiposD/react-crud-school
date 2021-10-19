@@ -25,9 +25,9 @@ export default function CheckboxAssoc(props) {
       }
       isOptionEqualToValue={(option, value) => option.id === value.id}
       onChange={(event, value) => {
-        setListCheckbox1(value);
-        console.log(listCheckbox1);
-        console.log(value);
+        props.setData(value);
+        // console.log(listCheckbox1);
+        // console.log(value);
       }}
       renderOption={(props, option, { selected }) => (
         <li {...props}>

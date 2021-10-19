@@ -72,4 +72,14 @@ export const deleteProfessor = (param) => {
   });
 }
 
+
+
+export const createParentStudentsAssoc = (param) => {
+  console.log(param);
+  return new Promise((resolve, reject) => {
+    axios.post('/parent-student/add', { ...param }).then(res => { resolve(res.data) });
+  });
+}
+
+
 // export default fetchStudents;

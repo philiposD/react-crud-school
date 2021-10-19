@@ -14,6 +14,8 @@ import CheckboxAssoc from "../../components/checkbox-associations";
 import { AppContext } from "../../AppContext";
 import BasicTabs from "../../components/basic-tabs";
 import Typography from "@mui/material/Typography";
+import { Button } from "@mui/material";
+import { createParentStudentsAssoc } from "../../services/http-service";
 
 function ParentsView() {
   const [parents, setParents] = useState(null);
@@ -23,8 +25,8 @@ function ParentsView() {
     lastName: "Gigi",
   });
 
-  const [listCheckbox1, setListCheckbox1] = useState([]);
-  const [listCheckbox2, setListCheckbox2] = useState([]);
+  const [listCheckboxParents, setListCheckbox1] = useState([]);
+  const [listCheckboxStudents, setListCheckbox2] = useState([]);
 
   const value = useMemo(
     () => ({
@@ -33,12 +35,12 @@ function ParentsView() {
       setMode,
       formValues,
       setFormValues,
-      listCheckbox1,
-      listCheckbox2,
-      setListCheckbox1,
-      setListCheckbox2,
+      // listCheckbox1,
+      // listCheckbox2,
+      // setListCheckbox1,
+      // setListCheckbox2,
     }),
-    [mode, setFormValues, formValues, listCheckbox1, listCheckbox2]
+    [mode, setFormValues, formValues]
   );
 
   const { setTitle } = useContext(AppContext);
@@ -110,6 +112,16 @@ function ParentsView() {
   var studentsData = JSON.parse(localStorage.getItem("students"));
   var parentsData = JSON.parse(localStorage.getItem("parents"));
 
+  function handleAssoc() {
+    console.log(listCheckboxParents, listCheckboxStudents);
+    listCheckboxParents.forEach((parent) => {
+      listCheckboxStudents.forEach((student) => {
+        var data = { parentId: parent.id, studentId: student.id };
+        createParentStudentsAssoc(data);
+      });
+    });
+  }
+
   return (
     <>
       {parents !== null ? (
@@ -152,6 +164,7 @@ function ParentsView() {
                 // data={JSON.parse(localStorage.getItem("parents"))}
                 key="parentsTabAssocCheck1"
                 context={ParentContext}
+                setData={setListCheckbox1}
               />,
               <CheckboxAssoc
                 label={"Pick a student"}
@@ -160,7 +173,15 @@ function ParentsView() {
                 // data={JSON.parse(localStorage.getItem("students"))}
                 key="parentsTabAssocCheck2"
                 context={ParentContext}
+                setData={setListCheckbox2}
               />,
+              <Button
+                variant="outlined"
+                onClick={handleAssoc}
+                key="buttonAssoc"
+              >
+                Outlined
+              </Button>,
               <DataTableSort
                 name={"Parents"}
                 context={ParentContext}
