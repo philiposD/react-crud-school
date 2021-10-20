@@ -18,7 +18,10 @@ const router = express.Router();
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
+
 let forceDB = false
+
+// await models.sequelize.query('SET FOREIGN_KEY_CHECKS = 0');
 
 models.sequelize.sync({ logging: console.log, force: forceDB }).then(result => {
   app.listen(PORT, () => {
@@ -37,11 +40,100 @@ models.sequelize.sync({ logging: console.log, force: forceDB }).then(result => {
     });
   });
 
-  app.get("/parents/all", (req, res) => {
-    models.parents.findAll().then(data => {
-      res.json({ message: "Hello from server!!!", data: data });
-    });
+  app.get("/parents/all", async (req, res) => {
+    // await setTimeout(() => {
+    //   console.log('bum');
+    //   models.parents.findAll().then(data => {
+    //     res.json({ message: "Hello from server!!!", data: data });
+    //   });
+    // }, 2000);
+
+    //good somehow
+    // await new Promise(resolve => setTimeout(() => {
+    //   models.parents.findAll().then(data => {
+    //     res.json({ message: "Hello from server!!!", data: data });
+    //   })
+    // }, 5000));
+
+    await models.parents.findAll().then(parents => {
+      for await (const parent of parent) {
+        var students = await models.sequelize.query(`SELECT * FROM students s LEFT JOIN parentStudents ps ON s.id = ps.studentId where ps.parentId =${parent['dataValues']['id']}`);
+        parent['dataValues']['students'] = students;
+      }
+
+      res.json({ message: "Hello from server!!!", data: parents });
+      // res.json({ message: "Hello from server!!!", data: data });
+    })
+
+
+
+
+    // async function test() {
+    //   await setTimeout(() => {
+    //     return '-----test';
+    //   }, 5000);
+    // }
+
+    // test().then(data => {
+    //   console.log(data);
+    //   models.parents.findAll().then(data => {
+    //     res.json({ message: "Hello from server!!!", data: data });
+    //   });
+    // });
+
+
+
+    // let test = await setTimeout(() => {
+    //   console.log('bum')
+    // }, 5000);
+
+    // test.then(val => {
+    //   models.parents.findAll().then(data => {
+    //     res.json({ message: "Hello from server!!!", data: data });
+    //   });
+    // })
+
   });
+
+  // app.get("/parents/all", (req, res) => {
+  //   // models.parents.findAll({
+  //   //   // include: [models.students]
+  //   // }).then(data => {
+  //   //   res.json({ message: "Hello from server!!!", data: data });
+  //   // });
+
+  //   var dataToSend;
+
+
+  //   models.parents.findAll({
+  //     // include: [{
+  //     //   model: models.students,
+  //     //   where: { id: models.parentStudents.studentId }
+  //     // }]
+  //   }).then(async data => {
+  //     dataToSend = data;
+  //     dataToSend.forEach(ele => {
+  //       // let prom = new Promise((resolve, reject) => {
+  //       //   var students = models.sequelize.query(`SELECT * FROM students s LEFT JOIN parentStudents ps ON s.id = ps.studentId where ps.parentId =${ele['dataValues']['id']}`);
+  //       //   resolve(students);
+  //       // });
+
+  //       var students = models.sequelize.query(`SELECT * FROM students s LEFT JOIN parentStudents ps ON s.id = ps.studentId where ps.parentId =${ele['dataValues']['id']}`);
+  //       ele['dataValues']['students'] = students;
+  //       ele['dataValues']['test'] = 'muie';
+  //       // prom.then(students => {
+  //       //   // console.log('--', students);
+  //       //   ele['dataValues']['students'] = students;
+  //       //   ele['dataValues']['test'] = 'muie';
+  //       // })
+  //     });
+
+  //     return dataToSend;
+  //   }).then(data => {
+  //     console.log('--someData', dataToSend)
+  //   });
+  //   res.json({ message: "Hello from server!!!", data: dataToSend });
+  // });
 
   app.get("/professors/all", (req, res) => {
     models.professors.findAll().then(data => {
@@ -184,5 +276,7 @@ models.sequelize.sync({ logging: console.log, force: forceDB }).then(result => {
 }).catch(err => {
   console.log(err);
 });
+
+// await models.sequelize.query('SET FOREIGN_KEY_CHECKS = 1');
 
 

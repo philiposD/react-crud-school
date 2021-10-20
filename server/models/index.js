@@ -3,6 +3,7 @@
 const fs = require('fs');
 const path = require('path');
 const Sequelize = require('sequelize');
+const students = require('./students');
 const basename = path.basename(__filename);
 const env = process.env.NODE_ENV || 'development';
 const config = require(__dirname + '/../config/config.json')[env];
@@ -27,15 +28,40 @@ fs
     db[model.name] = model;
   });
 
-Object.keys(db).forEach(modelName => {
-  if (db[modelName].associate) {
-    db[modelName].associate(db);
-  }
-});
+// Object.keys(db).forEach(modelName => {
+//   if (db[modelName].associate) {
+//     db[modelName].associate(db);
+//   }
+// });
 
-db.students.hasMany(db.parents);
+// db.students.hasMany(db.parents);
 db.parents.hasMany(db.parentStudents);
 db.students.hasMany(db.parentStudents);
+
+
+// db.students.belongsToMany(db.parents, { through: db.parentStudents });
+// db.parents.belongsToMany(db.students, { through: db.parentStudents });
+
+db.parentStudents.belongsTo(db.students, { foreinKey: 'studentId' });
+db.parentStudents.belongsTo(db.parents, { foreinKey: 'parentId' });
+
+// db['parents'].associate(db.parentStudents);
+
+// db.students.belongsToMany(db.parents, { through: db.parentStudents });
+// db.parents.belongsToMany(db.students, { through: db.parentStudents });
+
+// db.students.belongsToMany(db.parentStudents);
+
+
+
+
+//SELECT * FROM students s LEFT JOIN parentStudents ps ON s.id = ps.studentId where ps.parentId =1;
+//SELECT `students`.`id`, `students`.`firstName`, `students`.`lastName`, `students`.`dateOfBirth`, `students`.`email`, `students`.`phone`, `students`.`UID`, `students`.`school`, `students`.`class`, `students`.`createdAt`, `students`.`updatedAt`, `parentStudents`.`id` AS `parentStudents.id`, `parentStudents`.`createdAt` AS `parentStudents.createdAt`, `parentStudents`.`updatedAt` AS `parentStudents.updatedAt`, `parentStudents`.`parentId` AS `parentStudents.parentId`, `parentStudents`.`studentId` AS `parentStudents.studentId` FROM `students` AS `students` INNER JOIN `parentStudents` AS `parentStudents` ON `students`.`id` = `parentStudents`.`studentId` AND `parentStudents`.`parentId` = 1;
+//https://stackoverflow.com/questions/20460270/how-to-make-join-queries-using-sequelize-on-node-js
+// User.hasMany(Post, {foreignKey: 'user_id'})
+// Post.belongsTo(User, {foreignKey: 'user_id'})
+
+// Post.find({ where: { ...}, include: [User]})
 
 // db.parentStudents.hasMany(db.parents);
 // db.parentStudents.hasMany(db.students);

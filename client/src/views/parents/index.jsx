@@ -18,7 +18,7 @@ import { Button } from "@mui/material";
 import { createParentStudentsAssoc } from "../../services/http-service";
 
 function ParentsView() {
-  const [parents, setParents] = useState(null);
+  const [parents, setParents] = useState([]);
   const [mode, setMode] = useState("insert");
   const [formValues, setFormValues] = useState({
     firstName: "Bobi",
