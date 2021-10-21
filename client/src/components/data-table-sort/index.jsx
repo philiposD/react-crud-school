@@ -296,6 +296,8 @@ export default function DataTableSort(props) {
       {}
     );
     let arrFilteredRows = Object.values(filteredRowSorted);
+
+    debugger;
     return (
       <>
         <TableRow
@@ -344,33 +346,25 @@ export default function DataTableSort(props) {
               <Collapse in={open} timeout="auto" unmountOnExit>
                 <Box sx={{ margin: 1 }}>
                   <Typography variant="h6" gutterBottom component="div">
-                    History
+                    Students
                   </Typography>
                   <Table size="small" aria-label="purchases">
                     <TableHead>
                       <TableRow>
-                        <TableCell>Date</TableCell>
-                        <TableCell>Customer</TableCell>
+                        <TableCell>First name</TableCell>
+                        <TableCell>Last name</TableCell>
                         <TableCell align="right">Amount</TableCell>
                         <TableCell align="right">Total price ($)</TableCell>
                       </TableRow>
                     </TableHead>
                     <TableBody>
-                      {[1, 2, 3].map((historyRow) => (
-                        <TableRow
-                          key={
-                            historyRow.date || parseInt(Math.random() * 10000)
-                          }
-                        >
+                      {row.students.map((student) => (
+                        <TableRow>
                           <TableCell component="th" scope="row">
-                            {historyRow.date}
+                            {student.firstName}
                           </TableCell>
-                          <TableCell>{historyRow.customerId}</TableCell>
-                          <TableCell align="right">
-                            {historyRow.amount}
-                          </TableCell>
-                          <TableCell align="right">
-                            {Math.round(historyRow.amount * 123 * 100) / 100}
+                          <TableCell component="th" scope="row">
+                            {student.lastName}
                           </TableCell>
                         </TableRow>
                       ))}
