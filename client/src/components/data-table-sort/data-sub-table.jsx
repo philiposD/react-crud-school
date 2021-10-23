@@ -34,12 +34,27 @@ export default function DataSubTable(props) {
         <TableBody>
           <TableRow>
             <TableCell>
-              asd
+              asddd
+              {['All mail', 'Trash', 'Spam'].map((text, index) => (
+                <ListItem button key={text}>
+                  <ListItemIcon>
+                    {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
+                  </ListItemIcon>
+                  <ListItemText primary={text} />
+                </ListItem>
+              ))}
+              {[1,2,3].map(ele => (
+                    <>
+                    <div>{ele}</div>
+                    </>
+                  ))}
             </TableCell>
           </TableRow>
+
           {row.data !== undefined ? (
             row.data.map((student) => (
                 <TableRow>
+
                   {Object.values(student).map(value => (
                     <TableCell component="th" scope="row">
                       {console.log(value)}
