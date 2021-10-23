@@ -25,6 +25,7 @@ import { visuallyHidden } from "@mui/utils";
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 import KeyboardArrowUpIcon from "@mui/icons-material/KeyboardArrowUp";
 import Collapse from "@mui/material/Collapse";
+import DataSubTable from "./data-sub-table";
 
 export default function DataTableSort(props) {
   const [order, setOrder] = useState("asc");
@@ -297,7 +298,7 @@ export default function DataTableSort(props) {
     );
     let arrFilteredRows = Object.values(filteredRowSorted);
 
-    debugger;
+    // debugger;
     return (
       <>
         <TableRow
@@ -344,33 +345,7 @@ export default function DataTableSort(props) {
           <TableRow>
             <TableCell style={{ paddingBottom: 0, paddingTop: 0 }} colSpan={6}>
               <Collapse in={open} timeout="auto" unmountOnExit>
-                <Box sx={{ margin: 1 }}>
-                  <Typography variant="h6" gutterBottom component="div">
-                    Students
-                  </Typography>
-                  <Table size="small" aria-label="purchases">
-                    <TableHead>
-                      <TableRow>
-                        <TableCell>First name</TableCell>
-                        <TableCell>Last name</TableCell>
-                        <TableCell align="right">Amount</TableCell>
-                        <TableCell align="right">Total price ($)</TableCell>
-                      </TableRow>
-                    </TableHead>
-                    <TableBody>
-                      {row.students.map((student) => (
-                        <TableRow>
-                          <TableCell component="th" scope="row">
-                            {student.firstName}
-                          </TableCell>
-                          <TableCell component="th" scope="row">
-                            {student.lastName}
-                          </TableCell>
-                        </TableRow>
-                      ))}
-                    </TableBody>
-                  </Table>
-                </Box>
+                <DataSubTable row={row} use={'students'} />
               </Collapse>
             </TableCell>
           </TableRow>

@@ -46,57 +46,19 @@ models.sequelize.sync({ logging: console.log, force: forceDB }).then(result => {
       console.log('itterate1');
       var idParent = parent.dataValues.id;
       var students = await models.sequelize.query(`SELECT * FROM students s LEFT JOIN parentStudents ps ON s.id = ps.studentId where ps.parentId =${idParent}`);
+
       if (students[0] == students[1] && students[0] != undefined) {
         students = students[0];
       }
+
       console.log(students);
       parent.dataValues['students'] = students;
     }
 
-    // parents.forEach(async element => {
-    //   console.log(element);
-    //   var idParent = element.dataValues.id;
-    //   var students = await models.sequelize.query(`SELECT * FROM students s LEFT JOIN parentStudents ps ON s.id = ps.studentId where ps.parentId =${idParent}`);
-    //   element.dataValues['students'] = students;
-    // });
-    // console.log('--> parents')
     res.json({
       message: "Hello from server!!!",
       data: parents
     });
-
-    // try {
-    //   const parents = await models.parents.findAll();
-    //   parents.array.forEach(element => {
-    //     console.log(element);
-    //   });
-    //   console.log('--> parents')
-    //   res.json({
-    //     message: "Hello from server!!!",
-    //     data: parents
-    //   });
-    // } catch (error) {
-
-    // }
-
-
-    // models.parents.findAll({
-    //   include: [{
-    //     model: models.parentStudents, as: 'data',
-    //     required: false,
-    //     include: [{
-    //       model: models.students, as: 'data',
-    //       required: false
-    //     }]
-    //   }]
-    // }).then(data => {
-
-    //   res.json({
-    //     message: "Hello from server!!!",
-    //     data: data
-    //   });
-    // });
-
   });
 
   app.get("/professors/all", (req, res) => {
