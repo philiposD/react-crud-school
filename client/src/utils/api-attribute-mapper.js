@@ -22,60 +22,60 @@ export function apiAttributeMapper(element) {
     "class": "Class",
   }
 
-  function renameKeys(obj) {
-    let keys = Object.keys(obj);
-    keys.forEach(key => {
-      let newKey = keyMap[key];
-      if (newKey) {
-        obj[newKey] = obj[key];
-        delete obj[key];
-      }
-
-      // console.log(key, obj[key]);
-      if (obj[key] != null) {
-        if (typeof obj[key] === 'object') {
-          if (obj[key].length > 1) {
-            // debugger
-            obj[key].forEach(ele => renameKeys(ele));
-          }
-        }
-      }
-
-      return obj;
-      // console.log(key);
-    });
-
-
-
-    // obj.map((value, key) => {
-    //   let newKey = keyMap[key]
-    //   if (newKey) {
-    //     obj[newKey] = value;
-    //     delete obj[key];
-    //   }
-    //   if (typeof value == 'object') {
-    //     renameKeys(value);
-    //   }
-    // });
+  function rename(value) {
+    if (!value || typeof value !== 'object') return value;
+    if (Array.isArray(value)) return value.map(rename);
+    return Object.fromEntries(Object
+      .entries(value)
+      .map(([k, v]) => [keyMap[k] || k, rename(v)])
+    );
   }
 
-  renameKeys(element);
-  // renameKeys( element.data[0]);
-  // element.data.forEach(ele => {
-  //   renameKeys(ele);
-  // });
-
-  // for(let key in element.students[0]) {
-  //   debugger
-  // }
+  // function renameKeys(obj) {
+  //   let newObj = {};
+  //   Object.keys(obj).forEach(ele => {
+  //     if (keyMap[ele]) {
+  //       newObj[keyMap[ele]] = obj[ele]
+  //     }
   //
-  // switch (keys) {
-  //   case 'firstName':
-  //     return 'First name';
-  //     break;
+  //     if (ele === 'data') {
+  //        obj[ele].forEach(ele => renameKeys(ele));
+  //     }
+  //   });
+  //   return newObj;
+  //   // Object.keys(keyMap).forEach(ele => {
+  //   //   if (obj[ele]) {
+  //   //     newObj[keyMap[ele]] = obj[ele];
+  //   //   }
+  //   // });
   // }
-  // let values =  Object.values(element.students[0]);
+
+  // function renameKeys(obj) {
+  //   let keys = Object.keys(obj);
+  //   keys.forEach(key => {
+  //     let newKey = keyMap[key];
+  //     if (newKey) {
+  //       obj[newKey] = obj[key];
+  //       delete obj[key];
+  //     }
+  //
+  //     // console.log(key, obj[key]);
+  //     if (obj[key] != null) {
+  //       if (typeof obj[key] === 'object') {
+  //         if (obj[key].length > 1) {
+  //           // debugger
+  //           obj[key].forEach(ele => renameKeys(ele));
+  //         }
+  //       }
+  //     }
+  //
+  //     return obj;
+  //     // console.log(key);
+  //   });
+  // }
+
+  // renameKeys(element);
   console.log(element);
 
-  return element;
+  return rename(element);
 }

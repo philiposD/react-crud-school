@@ -285,6 +285,11 @@ export default function DataTableSort(props) {
     const { row, index } = props;
     const [open, setOpen] = useState(false);
 
+    function setOpenSubData(open) {
+      setOpen(!open);
+      fetchData().then((res) => setData(res.data));
+    }
+
     const isItemSelected = isSelected(row.id);
     const labelId = `enhanced-table-checkbox-${index}`;
 
@@ -326,7 +331,7 @@ export default function DataTableSort(props) {
             <IconButton
               aria-label="expand row"
               size="small"
-              onClick={() => setOpen(!open)}
+              onClick={() => setOpenSubData(open)}
             >
               {open ? <KeyboardArrowUpIcon /> : <KeyboardArrowDownIcon />}
             </IconButton>

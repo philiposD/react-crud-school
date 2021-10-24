@@ -2,12 +2,10 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="21d6dfde-b353-40ba-9847-4e41ecf37d39" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/client/src/utils/api-attribute-mapper.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/react-crud-boilerplate.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/react-crud-boilerplate.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/jsconfig.json" beforeDir="false" afterPath="$PROJECT_DIR$/client/jsconfig.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/components/data-table-sort/data-sub-table.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/data-table-sort/data-sub-table.jsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/client/src/components/data-table-sort/index.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/data-table-sort/index.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/server/index.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/utils/api-attribute-mapper.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/utils/api-attribute-mapper.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -38,6 +36,7 @@
     <option name="showLibraryContents" value="true" />
   </component>
   <component name="PropertiesComponent">
+    <property name="DatabaseDriversLRU" value="mysql" />
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
@@ -90,7 +89,7 @@
       <workItem from="1634988505600" duration="543000" />
       <workItem from="1634989077730" duration="14000" />
       <workItem from="1634989111223" duration="26000" />
-      <workItem from="1634989165662" duration="5682000" />
+      <workItem from="1634989165662" duration="15267000" />
     </task>
     <servers />
   </component>
